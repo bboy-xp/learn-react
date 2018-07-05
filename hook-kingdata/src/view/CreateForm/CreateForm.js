@@ -7,8 +7,9 @@ export default class CreateForm extends Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick() {
-    window.location.href = "/addElement";
+  handleClick(event) {
+    // window.location.href = "/addElement";
+    this.props.history.push("/addElement");
     // console.log("aaaa");
   }
 

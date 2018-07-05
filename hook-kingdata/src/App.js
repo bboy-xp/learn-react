@@ -4,6 +4,7 @@ import Home from './view/Home/Home';
 import CreateForm from './view/CreateForm/CreateForm';
 import AddElement from './view/AddElement/AddElement';
 import './App.css';
+import 'zent/css/index.css';
 
 class App extends Component {
   render() {
