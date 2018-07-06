@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Options from '../Options/Options';
 export default class ShowOption extends Component {
 
   constructor(props) {
@@ -12,7 +13,7 @@ export default class ShowOption extends Component {
   render() {
     return (
       <div>
-        {this.props.value == "single_choice" || this.props.value == "multiple_choice" || this.props.value == "drop_down" ? (<div>1</div>) : (<div>0</div>)}
+        {this.props.value == "single_choice" || this.props.value == "multiple_choice" || this.props.value == "drop_down" ? (<Options/>) : (<div>0</div>)}
         {/* <h1>{this.props.value}</h1> */}
       </div>
     )

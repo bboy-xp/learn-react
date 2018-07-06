@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Select } from 'zent';
-import ShowOption from '../../components/ShowOption';
+import ShowOption from '../../components/ShowOption/ShowOption';
 
 const data = [
   { text: "单行文本", value: "single_line_text", hidden: false },
