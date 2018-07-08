@@ -39,20 +39,18 @@ export default class AddElement extends Component {
     this.setState({
       name: event.target.value
     })
+    // console.log(this.state.name);
   }
-  addOption(ev, data) {
-    // console.log(ev);
-    // console.log(data);
-    // console.log(data.text);
+  addOption(data) {
+    // console.log(data.target.value);
     this.setState({
-      type: data.value,
+      type: data.target.value,
       change: true
     });
-    // console.log(this.state.type);
   }
 
   render() {
-    const changeProps = this.state.change ? "yes" : null;
+    const changeProps = this.state.change ? true : null;
     return (
 
       <div>
@@ -61,7 +59,8 @@ export default class AddElement extends Component {
         <br />
         <span>字段类型</span>
         <Select data={data} onChange={this.addOption} />
-        <ShowOption value={this.state.type} changeProps={changeProps} />
+        <ShowOption name={this.state.name} type={this.state.type} changeProps={changeProps} />
+        
       </div>
     )
   }

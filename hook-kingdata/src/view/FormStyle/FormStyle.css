@@ -1,0 +1,63 @@
+.title {
+  font-weight: bold;
+  font-size: 50rpx;
+  margin-bottom: 40rpx;
+}
+.inputBox {
+  border: 2rpx solid rgb(195, 201, 208);
+  width: 492rpx;
+  margin-bottom: 10rpx;
+  padding: 0 12rpx;
+  font-size: 24rpx;
+}
+.inputQuestion {
+  margin-top: 10rpx;
+  margin-bottom: 10rpx;
+  font-size: 30rpx;
+  color: rgb(34, 34, 34);
+  font-weight: bold;
+}
+.componentBox {
+  margin-bottom: 20rpx;
+}
+/* .radio-group {
+  font-size: 24rpx;
+  margin-top: 20rpx;
+  margin-bottom: 10rpx;
+  font-weight: bold;
+}
+
+.radioItem {
+  display: block;
+  margin: 10rpx 0;
+}
+.checkbox-group {
+  font-size: 24rpx;
+  margin-top: 30rpx;
+  margin-bottom: 10rpx;
+  font-weight: bold;
+}
+.checkboxItem {
+  display: block;
+  margin: 10rpx 0;
+}
+.textareaStyle {
+  margin-top: 10rpx;
+  border: 2rpx solid rgb(195, 201, 208);
+  border-radius: 10rpx;
+  font-size: 30rpx;
+  padding: 10rpx;
+}
+.picker {
+  font-size: 24rpx;
+  margin-left: 50rpx;
+} */
+.submitBtn {
+  height: 64rpx;
+  width: 276rpx;
+  padding: 0 110rpx;
+  font-size: 28rpx;
+  background-color: rgb(255, 133, 0);
+  color: white;
+  margin: 66rpx auto 30rpx auto;
+}
