@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Link } from "react-router-dom";
-export default class CreateForm extends Component {
+export default class EditElement extends Component {
 
   constructor(props) {
     super(props);
@@ -9,17 +9,16 @@ export default class CreateForm extends Component {
 
   handleClick(event) {
     // window.location.href = "/addElement";
-    this.props.history.push("/editElement");
+    this.props.history.push("/addElement");
     // console.log("aaaa");
   }
 
   render() {
     return(
       <div>
-        <span>描述表单</span>
-        <input></input>
+        
         <div>
-          <button onClick={this.handleClick}>点击编辑字段</button>
+          <button onClick={this.handleClick}>点击添加字段</button>
           {/* <Link to = "/addElement">点击添加字段</Link> */}
 
         </div>

@@ -4,6 +4,7 @@ import Home from './view/Home/Home';
 import CreateForm from './view/CreateForm/CreateForm';
 import AddElement from './view/AddElement/AddElement';
 import FormStyle from './view/FormStyle/FormStyle';
+import EditElement from './view/EditElement/EditElement';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
@@ -43,6 +44,7 @@ class App extends Component {
             <Route path="/createForm" component={CreateForm} />
             <Route path="/addElement" component={AddElement} />
             <Route path="/formStyle" component={FormStyle} />
+            <Route path="/editElement" component={EditElement} />
           </div>
         </BrowserRouter>
       </Provider>

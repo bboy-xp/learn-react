@@ -59,7 +59,7 @@ export default class AddElement extends Component {
         <br />
         <span>字段类型</span>
         <Select data={data} onChange={this.addOption} />
-        <ShowOption name={this.state.name} type={this.state.type} changeProps={changeProps} />
+        <ShowOption history ={this.props.history} name={this.state.name} type={this.state.type} changeProps={changeProps} />
         
       </div>
     )

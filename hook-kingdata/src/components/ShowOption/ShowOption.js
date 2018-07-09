@@ -50,7 +50,7 @@ class ShowOption extends Component {
   }
 
   saveElement() {
-    // console.log(this.state);
+    console.log(this.props.history);
 
     if (this.state.type == 'single_choice' || this.state.type == 'multiple_choice' || this.state.type == 'drop_down') {
       const field = {
@@ -60,13 +60,15 @@ class ShowOption extends Component {
       }
       // console.log(field);
       this.props.pushFields(field);
+      this.props.history.push("/editElement");
     } else {
       const field = {
         name: this.state.name,
         type: this.state.type,
       }
-      console.log(field);
+      // console.log(field);
       this.props.pushFields(field);
+      this.props.history.push("/editElement");
     }
   }
 
@@ -126,7 +128,7 @@ class ShowOption extends Component {
 
 //将state.timeResStrArray绑定到props的timeResStrArray
 const mapStateToProps = (state = {}) => {
-  console.log(state)
+  console.log(state);
   return {
     fields: state.fields
   }
