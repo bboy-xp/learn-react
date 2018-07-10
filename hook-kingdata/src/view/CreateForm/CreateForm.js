@@ -46,8 +46,6 @@ class CreateForm extends Component {
         <input onChange={this.getDescribe}></input>
         <div>
           <button onClick={this.handleClick}>点击编辑字段</button>
-          {/* <Link to = "/addElement">点击添加字段</Link> */}
-
         </div>
       </div>
     )
