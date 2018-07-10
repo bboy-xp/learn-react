@@ -16,7 +16,7 @@ import { Form } from 'zent';
 function todos(state = {}, action) {
   switch (action.type) {
     case 'PUSH_FIELDS':
-    console.log(1111);
+      // console.log(1111);
       if (!state.fields) {
         // console.log(action);
         return Object.assign({}, state, { fields: [].concat([action.field]) })
@@ -27,6 +27,10 @@ function todos(state = {}, action) {
         return Object.assign({}, state, { fields: state.fields.concat([action.field]) })
       }
       break;
+    case 'PUSH_TITLE':
+      return Object.assign({}, state, { title: action.title });
+    case 'PUSH_DESCRIBE':
+      return Object.assign({}, state, { describe: action.describe });
     default:
       break;
   }
