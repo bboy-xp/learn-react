@@ -51,7 +51,7 @@ export default class FormStyle extends Component {
         </div>
         <div>
           <div className="inputQuestion">单项选择</div>
-          <RadioGroup>
+          <RadioGroup value="male">
             <Radio value="male">男</Radio>
             <Radio value="female">女</Radio>
           </RadioGroup>
@@ -71,7 +71,8 @@ export default class FormStyle extends Component {
             optionValue="id"
             optionText="name"
             onChange={this.showOption}
-          />,
+          />
+          
         </div>
 
       </div>
