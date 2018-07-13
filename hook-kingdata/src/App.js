@@ -16,21 +16,25 @@ import { Form } from 'zent';
 function todos(state = {}, action) {
   switch (action.type) {
     case 'PUSH_FIELDS':
-      // console.log(1111);
-      if (!state.fields) {
+      // console.log(state.num);
+      const fields_n = "fields_" + state.num;
+      // console.log(!state[fields_n]);
+      if (state[fields_n].length) {
         // console.log(action);
-        return Object.assign({}, state, { fields: [].concat([action.field]) })
+        return Object.assign({}, state, { ["fields_" + state.num]: state["fields_" + state.num].concat([action.field]) })
       }
 
-      if (state.fields.length) {
-        // console.log(action);
-        return Object.assign({}, state, { fields: state.fields.concat([action.field]) })
-      }
-      break;
+      return Object.assign({}, state, { ["fields_" + state.num]: [].concat([action.field]) })
+
+
     case 'PUSH_TITLE':
       return Object.assign({}, state, { title: action.title });
     case 'PUSH_DESCRIBE':
       return Object.assign({}, state, { describe: action.describe });
+    case 'PUSH_NUM':
+      return Object.assign({}, state, { num: action.num });
+    case 'INIT_FIELD':
+      return Object.assign({}, state, { ["fields_" + state.num]: [] })
     default:
       break;
   }

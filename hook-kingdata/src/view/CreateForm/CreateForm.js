@@ -5,12 +5,13 @@ class CreateForm extends Component {
 
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
+    this.createChildForm = this.createChildForm.bind(this);
     this.getTitle = this.getTitle.bind(this);
     this.getDescribe = this.getDescribe.bind(this);
+    //将redux中的数据取出渲染
     this.state = {
-      title: '',
-      describe: ''
+      title: this.props.formData.title,
+      describe: this.props.formData.describe
     }
 
   }
@@ -27,12 +28,25 @@ class CreateForm extends Component {
 
   }
 
-  handleClick(event) {
+  createChildForm(event) {
     // window.location.href = "/addElement";
     const title = this.state.title;
     const describe = this.state.describe;
-    this.props.pushTitle(title);
-    this.props.pushDescribe(describe);
+    // console.log(this.props.formData);
+    //判断用户是否提交过第一张子表单
+    if (!this.props.formData.title || !this.props.formData.describe) {
+      this.props.pushTitle(title);
+      this.props.pushDescribe(describe);
+      let num = 1;
+      this.props.pushNum(num);
+      console.log("success push title and describe");
+    }else {
+      this.props.pushTitle(title);
+      this.props.pushDescribe(describe);
+      // console.log(this.props.formData.num);
+      let num = this.props.formData.num +1;
+      this.props.pushNum(num);
+    }
     this.props.history.push("/editElement");
     // console.log("aaaa");
   }
@@ -41,11 +55,11 @@ class CreateForm extends Component {
     return (
       <div>
         <span>表单名称</span>
-        <input onChange={this.getTitle}></input>
+        <input value={this.state.title || ''} onChange={this.getTitle}></input>
         <span>表单描述</span>
-        <input onChange={this.getDescribe}></input>
+        <input value={this.state.describe || ''} onChange={this.getDescribe}></input>
         <div>
-          <button onClick={this.handleClick}>点击编辑字段</button>
+          <button onClick={this.createChildForm}>点击创建子表单</button>
         </div>
       </div>
     )
@@ -57,14 +71,15 @@ class CreateForm extends Component {
 const mapStateToProps = (state = {}) => {
   console.log(state);
   return {
-    fields: state.fields
+    formData: state
   }
 };
 //将action的所有方法绑定到props上
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     pushTitle: (title) => dispatch({ type: "PUSH_TITLE", title }),
-    pushDescribe: (describe) => dispatch({ type: "PUSH_DESCRIBE", describe })
+    pushDescribe: (describe) => dispatch({ type: "PUSH_DESCRIBE", describe }),
+    pushNum: (num) => dispatch({ type: "PUSH_NUM", num }),
   }
 };
 
