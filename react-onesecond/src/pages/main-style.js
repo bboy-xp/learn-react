@@ -11,7 +11,7 @@ export const MainContainer = shadowDIV.extend`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-`;
+`
 export const TimeShowBox = shadowDIV.extend`
     width:30vw;
     height:10vh;
