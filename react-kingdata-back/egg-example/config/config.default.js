@@ -9,5 +9,16 @@ module.exports = appInfo => {
   // add your config here
   config.middleware = [];
 
+  exports.mongoose = {
+    url: 'mongodb://127.0.0.1/react-kingdata-back',
+    options: {}
+  };
+
+  config.security = {
+    csrf: {
+      enable: false,
+    },
+  }
+
   return config;
 };

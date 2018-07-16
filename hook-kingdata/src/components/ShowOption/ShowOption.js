@@ -128,7 +128,7 @@ class ShowOption extends Component {
 
 //将state.fields绑定到props的timeResStrArray
 const mapStateToProps = (state = {}) => {
-  console.log(state);
+  // console.log(state);
   return {
     fields: state.fields
   }

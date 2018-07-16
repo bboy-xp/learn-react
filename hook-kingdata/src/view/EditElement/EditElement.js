@@ -1,24 +1,32 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
+import axios from 'axios';
 class EditElement extends Component {
 
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
+    this.addElement = this.addElement.bind(this);
+    this.saveForm = this.saveForm.bind(this);
     this.state = {
       fields: []
     }
   }
 
-  handleClick(event) {
+  addElement(event) {
     // window.location.href = "/addElement";
     this.props.history.push("/addElement");
     // console.log("aaaa");
   }
+  async saveForm() {
+    const FormData = this.props.formData;
+    const res = await axios.post('/saveForm',FormData);
+    console.log(res);
+    this.props.history.push('/');
+  }
   componentDidMount() {
     this.setState({
-      fields: this.props.fields
+      fields: this.props.formData.fields
     })
   }
 
@@ -36,9 +44,9 @@ class EditElement extends Component {
       <div>
         {list}
         <div>
-          <button onClick={this.handleClick}>点击添加字段</button>
+          <button onClick={this.addElement}>点击添加字段</button>
           {/* <Link to = "/addElement">点击添加字段</Link> */}
-
+          <button onClick={this.saveForm}>保存表单</button>
         </div>
       </div>
     )
@@ -46,11 +54,11 @@ class EditElement extends Component {
 
 }
 
-//将state.fields绑定到props的timeResStrArray
+//将state绑定到props的formData上
 const mapStateToProps = (state = {}) => {
   console.log(state);
   return {
-    fields: state.fields
+    formData: state
   }
 };
 //将action的所有方法绑定到props上

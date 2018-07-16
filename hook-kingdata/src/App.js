@@ -11,7 +11,6 @@ import { createStore } from 'redux';
 import './App.css';
 //引入zent组件库样式
 import 'zent/css/index.css';
-import { Form } from 'zent';
 
 function todos(state = {}, action) {
   switch (action.type) {
@@ -31,6 +30,8 @@ function todos(state = {}, action) {
       return Object.assign({}, state, { title: action.title });
     case 'PUSH_DESCRIBE':
       return Object.assign({}, state, { describe: action.describe });
+    case 'PUSH_ID':
+      return Object.assign({}, state, { id: action.id });
     default:
       break;
   }
@@ -55,16 +56,4 @@ class App extends Component {
     );
   }
 }
-// React.render((
-// <Router>
-//   <Route path="/" component={App}>
-//     <Route path="createForm" component={Radio} />
-//   </Route>
-// </Router>
-// ), document.body)
-// const component2 = ()=>{
-//   return (
-//     <div>你好</div>
-//   )
-// }
 export default App;

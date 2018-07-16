@@ -6,5 +6,6 @@
 module.exports = app => {
   const { router, controller } = app;
   router.get('/', controller.home.index);
-  router.get('/test', controller.home.test);
+  router.post('/saveForm', controller.home.saveForm);
+  router.get('/getAllForm', controller.home.getAllForm);
 };
