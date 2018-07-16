@@ -49,6 +49,7 @@ class Home extends Component {
         <div onClick={this.createForm}>点击创建表单</div>
         <div>已建表单</div>
         {formList}
+        <button>点击关联表单</button>
       </div>
     )
   }
