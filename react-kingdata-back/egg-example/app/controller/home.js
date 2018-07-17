@@ -10,9 +10,11 @@ class HomeController extends Controller {
     const ctx = this.ctx;
     const res = ctx.request.body;
     const Formdata = ctx.model.Formdata;
+    
     const formdata = new Formdata({
       title: res.title,
       describe: res.describe,
+      next: res.next,
       id: res.id,
       fields: res.fields
     })
@@ -24,6 +26,15 @@ class HomeController extends Controller {
     const Formdata = ctx.model.Formdata;
     const allForm = await Formdata.find();
     ctx.body = allForm;
+  }
+  async getForm() {
+    const ctx = this.ctx;
+    const id = ctx.request.body.id;
+    console.log(id);
+    const Formdata = ctx.model.Formdata;
+    const targetForm = await Formdata.find({id: id});
+
+    ctx.body = targetForm;
   }
 }
 

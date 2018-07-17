@@ -12,12 +12,6 @@ class Home extends Component {
     }
     this.createForm = this.createForm.bind(this);
   }
-
-  async componentDidMount() {
-    // console.log(random(false,5));
-    // const res = await axios.get('/test');
-    // console.log(res);
-  }
   async componentDidMount() {
     const res = await axios.get("/getAllForm");
     // console.log(res);
@@ -38,7 +32,7 @@ class Home extends Component {
     // console.log(allForm);
     const formList = this.state.allForm.map((form, index) => 
       <div key={index}>
-        <span>{form.id}</span>
+        <span>{form.title}</span>
       </div>
     )
     console.log(formList);
@@ -49,7 +43,6 @@ class Home extends Component {
         <div onClick={this.createForm}>点击创建表单</div>
         <div>已建表单</div>
         {formList}
-        <button>点击关联表单</button>
       </div>
     )
   }

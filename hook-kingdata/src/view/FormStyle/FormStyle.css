@@ -61,3 +61,10 @@
   color: white;
   margin: 66rpx auto 30rpx auto;
 }
+.textareaStyle {
+  margin-top: 10rpx;
+  border: 2rpx solid rgb(195, 201, 208);
+  border-radius: 10rpx;
+  font-size: 30rpx;
+  padding: 10rpx;
+}

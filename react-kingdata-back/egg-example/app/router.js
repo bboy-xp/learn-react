@@ -8,4 +8,5 @@ module.exports = app => {
   router.get('/', controller.home.index);
   router.post('/saveForm', controller.home.saveForm);
   router.get('/getAllForm', controller.home.getAllForm);
+  router.post('/getForm',controller.home.getForm);
 };

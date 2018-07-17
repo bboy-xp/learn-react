@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import { Radio, Checkbox, Select } from 'zent';
-import('./FormStyle.css');
+import './FormStyle.css';
+import axios from 'axios';
+
 const CheckboxGroup = Checkbox.Group;
 
 const RadioGroup = Radio.Group;
@@ -26,6 +28,16 @@ export default class FormStyle extends Component {
   }
   showOption() {
     console.log(111);
+  }
+  async componentDidMount() {
+    //获取url中的参数
+    let id = this.props.location.search;
+    id = id.split('=')[1];
+    // console.log(id);
+    const res = await axios.post('/getForm',{
+      id: id
+    });
+    console.log(res.data);
   }
 
 
@@ -72,7 +84,11 @@ export default class FormStyle extends Component {
             optionText="name"
             onChange={this.showOption}
           />
-          
+
+        </div>
+        <div>
+          <div>多行文本</div>
+          <textarea className="textareaStyle"auto-focus="true" maxlength="400"cols="30" rows="10"></textarea>
         </div>
 
       </div>

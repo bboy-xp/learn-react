@@ -32,6 +32,8 @@ function todos(state = {}, action) {
       return Object.assign({}, state, { describe: action.describe });
     case 'PUSH_ID':
       return Object.assign({}, state, { id: action.id });
+    case 'PUSH_NEXT':
+      return Object.assign({}, state, { next: action.next });
     default:
       break;
   }

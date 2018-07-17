@@ -45,6 +45,7 @@ class EditElement extends Component {
         {list}
         <div>
           <button onClick={this.addElement}>点击添加字段</button>
+          <br/>
           {/* <Link to = "/addElement">点击添加字段</Link> */}
           <button onClick={this.saveForm}>保存表单</button>
         </div>

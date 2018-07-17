@@ -2,32 +2,45 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
 import axios from 'axios';
+import { Select } from 'zent';
 class EditElement extends Component {
 
   constructor(props) {
     super(props);
     this.addElement = this.addElement.bind(this);
     this.saveForm = this.saveForm.bind(this);
+    this.connectForm = this.connectForm.bind(this);
+    this.viewForm = this.viewForm.bind(this);
     this.state = {
-      fields: []
+      fields: [],
+      allForm: [],
     }
   }
 
   addElement(event) {
-    // window.location.href = "/addElement";
     this.props.history.push("/addElement");
-    // console.log("aaaa");
+  }
+  viewForm() {
+    const id = this.props.formData.id;
+    console.log(id);
+    this.props.history.push("/formStyle?id="+id);
   }
   async saveForm() {
     const FormData = this.props.formData;
-    const res = await axios.post('/saveForm',FormData);
+    const res = await axios.post('/saveForm', FormData);
     console.log(res);
-    this.props.history.push('/');
+    //临时注释7.18
+    // window.location.href = "/";
   }
-  componentDidMount() {
+  async componentDidMount() {
+    const res = await axios.get("/getAllForm");
     this.setState({
+      allForm: res.data,
       fields: this.props.formData.fields
     })
+  }
+  connectForm(event) {
+    this.props.pushNext(event.target.value);
   }
 
   render() {
@@ -36,16 +49,23 @@ class EditElement extends Component {
       list = this.state.fields.map((field, index) =>
         <div key={index}>{field.type}</div>
       )
-    }else {
+    } else {
       <div>空</div>
     }
-  
+
     return (
       <div>
         {list}
         <div>
           <button onClick={this.addElement}>点击添加字段</button>
+          <br />
           {/* <Link to = "/addElement">点击添加字段</Link> */}
+          <div>
+            <span>选择关联的表单</span>
+            <Select optionText="title" optionValue="id" data={this.state.allForm} onChange={this.connectForm}></Select>
+          </div>
+          <button onClick={this.viewForm}>在线预览表单</button>
+          <br/>
           <button onClick={this.saveForm}>保存表单</button>
         </div>
       </div>
@@ -64,7 +84,7 @@ const mapStateToProps = (state = {}) => {
 //将action的所有方法绑定到props上
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-
+    pushNext: (next) => dispatch({ type: "PUSH_NEXT", next })
   }
 };
 

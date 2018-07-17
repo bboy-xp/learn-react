@@ -32,21 +32,9 @@ class CreateForm extends Component {
     // window.location.href = "/addElement";
     const title = this.state.title;
     const describe = this.state.describe;
-    // console.log(this.props.formData);
-    //判断用户是否提交过第一张子表单
-    if (!this.props.formData.title || !this.props.formData.describe) {
-      this.props.pushTitle(title);
-      this.props.pushDescribe(describe);
-      let num = 1;
-      this.props.pushNum(num);
-      console.log("success push title and describe");
-    }else {
-      this.props.pushTitle(title);
-      this.props.pushDescribe(describe);
-      // console.log(this.props.formData.num);
-      let num = this.props.formData.num +1;
-      this.props.pushNum(num);
-    }
+
+    this.props.pushTitle(title);
+    this.props.pushDescribe(describe);
     this.props.history.push("/editElement");
     // console.log("aaaa");
   }
