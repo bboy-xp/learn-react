@@ -27,6 +27,13 @@ class HomeController extends Controller {
     const allForm = await Formdata.find();
     ctx.body = allForm;
   }
+  async getNextForm() {
+    const ctx = this.ctx;
+    const Formdata = ctx.model.Formdata;
+    const targetForm = await Formdata.find({next:null});
+    // console.log(targetForm);
+    ctx.body = targetForm;
+  }
   async getForm() {
     const ctx = this.ctx;
     const id = ctx.request.body.id;

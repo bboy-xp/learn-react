@@ -33,7 +33,7 @@ class EditElement extends Component {
     // window.location.href = "/";
   }
   async componentDidMount() {
-    const res = await axios.get("/getAllForm");
+    const res = await axios.get("/getNextForm");
     this.setState({
       allForm: res.data,
       fields: this.props.formData.fields
@@ -64,9 +64,9 @@ class EditElement extends Component {
             <span>选择关联的表单</span>
             <Select optionText="title" optionValue="id" data={this.state.allForm} onChange={this.connectForm}></Select>
           </div>
-          <button onClick={this.viewForm}>在线预览表单</button>
-          <br/>
           <button onClick={this.saveForm}>保存表单</button>
+          <br/>
+          <button onClick={this.viewForm}>在线预览表单</button>
         </div>
       </div>
     )

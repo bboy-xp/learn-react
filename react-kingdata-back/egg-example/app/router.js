@@ -9,4 +9,5 @@ module.exports = app => {
   router.post('/saveForm', controller.home.saveForm);
   router.get('/getAllForm', controller.home.getAllForm);
   router.post('/getForm',controller.home.getForm);
+  router.get('/getNextForm',controller.home.getNextForm);
 };

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import random from "../../components/random/random";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 class Home extends Component {
 
@@ -32,7 +33,7 @@ class Home extends Component {
     // console.log(allForm);
     const formList = this.state.allForm.map((form, index) => 
       <div key={index}>
-        <span>{form.title}</span>
+        <Link to={"/formStyle?id="+form.id}>{form.title}</Link>
       </div>
     )
     console.log(formList);

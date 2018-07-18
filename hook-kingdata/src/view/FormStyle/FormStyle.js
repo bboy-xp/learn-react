@@ -17,80 +17,118 @@ export default class FormStyle extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      radioValue: {},
+      fields: [],
       checkedList: [],
+      next: ""
     }
-    this.onChange = this.onChange.bind(this);
-    this.showOption = this.showOption.bind(this);
+    this.checkboxChange = this.checkboxChange.bind(this);
+    this.radioChange = this.radioChange.bind(this);
+    this.submit = this.submit.bind(this);
   }
 
-  onChange(checkedList) {
+  checkboxChange(checkedList) {
     this.setState({ checkedList });
   }
-  showOption() {
-    console.log(111);
+  radioChange(event) {
+    // console.log(event.target.value);
+    this.setState({
+      radioValue: event.target.value
+    })
+  }
+  submit() {
+    if(this.state.next) {
+      // console.log(this.state.next);
+      // this.props.history.push("/formStyle?id="+this.state.next);
+      window.location.href = "/formStyle?id="+this.state.next;
+    }else {
+      window.location.href = "/";
+    }
   }
   async componentDidMount() {
     //获取url中的参数
     let id = this.props.location.search;
     id = id.split('=')[1];
-    // console.log(id);
-    const res = await axios.post('/getForm',{
+    const res = await axios.post('/getForm', {
       id: id
     });
-    console.log(res.data);
+    //将foem的fields传入state中
+    this.setState({
+      fields: res.data[0].fields,
+      next: res.data[0].next,
+    })
   }
-
 
   render() {
     const { checkedList } = this.state;
+    const fields = this.state.fields;
+    const list = fields.map((field, index) => {
+      // <div key={index}>
+      //   <span>{field.name}</span>
+      // </div>
+      if (field.type === "number") {
+        return <div key={index}>
+          <div className="inputQuestion">{field.name}</div>
+          <input className="inputBox" />
+        </div>
+      }
+      if (field.type === "single_line_text") {
+        return <div key={index}>
+          <div className="inputQuestion">{field.name}</div>
+          <input className="inputBox" />
+        </div>
+      }
+      if (field.type === "paragraph_text") {
+        return <div key={index}>
+          <div className="inputQuestion">{field.name}</div>
+          <textarea className="textareaStyle" auto-focus="true" maxLength="400" cols="30" rows="10"></textarea>
+        </div>
+      }
+      if (field.type === "phone") {
+        return <div key={index}>
+          <div className="inputQuestion">{field.name}</div>
+          <input className="inputBox" />
+        </div>
+      }
+      if (field.type === "multiple_choice") {
+        return <div key={index}>
+          <div className="inputQuestion">{field.name}</div>
+          <CheckboxGroup value={checkedList} onChange={this.checkboxChange} >
+            {field.choice.map((item, index) =>
+              <div key={index}>
+                <Checkbox value={item.value}>{item.value}</Checkbox>
+              </div>
+            )}
+          </CheckboxGroup>
+        </div>
+      }
+      if(field.type === "single_choice") {
+        return <div key={index}>
+          <div className="inputQuestion">{field.name}</div>
+          <RadioGroup value={this.state.radioValue} onChange={this.radioChange}>
+            {field.choice.map((item,index) => 
+              <div key={index}>
+                <Radio value={item.value}>{item.value}</Radio>
+              </div> 
+            )}
+          </RadioGroup>
+        </div>
+      }
+      if(field.type === "drop_down") {
+        return <div key={index}>
+          <div className="inputQuestion">{field.name}</div>  
+          <Select data={field.choice} optionText="value" optionValue="value"></Select>
+        </div>
+      }
+    }
+    )
+
     return (
       <div>
         <div>
-          <div className="inputQuestion">· 单行文本</div>
-          <input className="inputBox" />
+          {list}
+          <button onClick={this.submit} className="submitBtn">提交</button>
         </div>
-        <div>
-          <div className="inputQuestion">· 数字</div>
-          <input className="inputBox" />
-        </div>
-        <div>
-          <div className="inputQuestion">· 电话</div>
-          <input className="inputBox" />
-        </div>
-        <div>
-          <div className="inputQuestion">· 邮箱</div>
-          <input className="inputBox" />
-        </div>
-        <div>
-          <div className="inputQuestion">单项选择</div>
-          <RadioGroup value="male">
-            <Radio value="male">男</Radio>
-            <Radio value="female">女</Radio>
-          </RadioGroup>
-        </div>
-        <div>
-          <div className="inputQuestion">多项选择</div>
-          <CheckboxGroup value={checkedList} onChange={this.onChange}>
-            <Checkbox value="Apple">苹果</Checkbox>
-            <Checkbox value="Pear">梨子</Checkbox>
-            <Checkbox value="Orange">橘子</Checkbox>
-          </CheckboxGroup>
-        </div>
-        <div>
-          <div className="inputQuestion">下拉框</div>
-          <Select
-            data={data}
-            optionValue="id"
-            optionText="name"
-            onChange={this.showOption}
-          />
-
-        </div>
-        <div>
-          <div>多行文本</div>
-          <textarea className="textareaStyle"auto-focus="true" maxlength="400"cols="30" rows="10"></textarea>
-        </div>
-
       </div>
     )
   }
