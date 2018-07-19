@@ -33,7 +33,7 @@ class EditElement extends Component {
     // window.location.href = "/";
   }
   async componentDidMount() {
-    const res = await axios.get("/getNextForm");
+    const res = await axios.get("/getAllForm");
     this.setState({
       allForm: res.data,
       fields: this.props.formData.fields

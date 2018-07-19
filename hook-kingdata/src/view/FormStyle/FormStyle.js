@@ -29,19 +29,24 @@ export default class FormStyle extends Component {
 
   checkboxChange(checkedList) {
     this.setState({ checkedList });
+    console.log(this.state.checkedList);
   }
-  radioChange(event) {
+  radioChange(index) {
     // console.log(event.target.value);
-    this.setState({
-      radioValue: event.target.value
-    })
+    const that = this;
+    return function(event){
+      that.setState({
+        ['radioValue'+index]: event.target.value
+      })
+      console.log(that.state);
+    }
   }
   submit() {
-    if(this.state.next) {
+    if (this.state.next) {
       // console.log(this.state.next);
       // this.props.history.push("/formStyle?id="+this.state.next);
-      window.location.href = "/formStyle?id="+this.state.next;
-    }else {
+      window.location.href = "/formStyle?id=" + this.state.next;
+    } else {
       window.location.href = "/";
     }
   }
@@ -52,7 +57,7 @@ export default class FormStyle extends Component {
     const res = await axios.post('/getForm', {
       id: id
     });
-    //将foem的fields传入state中
+    //将form的fields传入state中
     this.setState({
       fields: res.data[0].fields,
       next: res.data[0].next,
@@ -69,7 +74,6 @@ export default class FormStyle extends Component {
       if (field.type === "number") {
         return <div key={index}>
           <div className="inputQuestion">{field.name}</div>
-          <input className="inputBox" />
         </div>
       }
       if (field.type === "single_line_text") {
@@ -102,21 +106,21 @@ export default class FormStyle extends Component {
           </CheckboxGroup>
         </div>
       }
-      if(field.type === "single_choice") {
+      if (field.type === "single_choice") {
         return <div key={index}>
           <div className="inputQuestion">{field.name}</div>
-          <RadioGroup value={this.state.radioValue} onChange={this.radioChange}>
-            {field.choice.map((item,index) => 
+          <RadioGroup value={this.state['radioValue'+index]} onChange={this.radioChange(index)}>
+            {field.choice.map((item, index) =>
               <div key={index}>
                 <Radio value={item.value}>{item.value}</Radio>
-              </div> 
+              </div>
             )}
           </RadioGroup>
         </div>
       }
-      if(field.type === "drop_down") {
+      if (field.type === "drop_down") {
         return <div key={index}>
-          <div className="inputQuestion">{field.name}</div>  
+          <div className="inputQuestion">{field.name}</div>
           <Select data={field.choice} optionText="value" optionValue="value"></Select>
         </div>
       }
