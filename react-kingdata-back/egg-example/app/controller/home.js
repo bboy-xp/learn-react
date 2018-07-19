@@ -43,6 +43,11 @@ class HomeController extends Controller {
 
     ctx.body = targetForm;
   }
+  postUserData() {
+    const ctx = this.ctx;
+    console.log(ctx.request.body);
+    ctx.body = 'ok';
+  }
 }
 
 module.exports = HomeController;
