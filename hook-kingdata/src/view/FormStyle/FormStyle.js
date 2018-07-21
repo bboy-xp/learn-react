@@ -105,21 +105,24 @@ export default class FormStyle extends Component {
   async submit() {
     const res = await axios.post('/postUserData',this.state.userData);
     console.log(res);
-    // if (this.state.next) {
-    //   // console.log(this.state.next);
-    //   // this.props.history.push("/formStyle?id="+this.state.next);
-    //   window.location.href = "/formStyle?id=" + this.state.next;
-    // } else {
-    //   window.location.href = "/";
-    // }
-    // console.log(this.state.userData);
+    if(res.data === "ok") {
+      if (this.state.next) {
+        window.location.href = "/formStyle?id=" + this.state.next;
+      } else {
+        window.location.href = "/";
+      }
+    }else {
+      alert('服务器故障，请重新填写表单，谢谢');
+    }
   }
   async componentDidMount() {
     //获取url中的参数
+    const url = window.location.href;
     let id = this.props.location.search;
     id = id.split('=')[1];
     const res = await axios.post('/getForm', {
-      id: id
+      id: id,
+      url: url
     });
     //将form的fields传入state中
     this.setState({
@@ -128,7 +131,13 @@ export default class FormStyle extends Component {
       userData: {
         id: id
       }
-    })
+    });
+    // console.log(window.location.href);
+
+    // 这里出现了跨域的问题
+    window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx21174deccc6b6c4b&redirect_uri=http%3a%2f%2fhook.feit.me%2foauth&response_type=code&scope=snsapi_base&state=123#wechat_redirect';
+    // const openid = axios.get('https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx21174deccc6b6c4b&redirect_uri=http%3a%2f%2fhook.feit.me%2foauth&response_type=code&scope=snsapi_base&state=123#wechat_redirect');
+    // console.log(openid);
   }
 
   render() {

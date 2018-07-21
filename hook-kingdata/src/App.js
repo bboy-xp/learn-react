@@ -5,6 +5,9 @@ import CreateForm from './view/CreateForm/CreateForm';
 import AddElement from './view/AddElement/AddElement';
 import FormStyle from './view/FormStyle/FormStyle';
 import EditElement from './view/EditElement/EditElement';
+import Signin from './view/Signin/Signin';
+import Signup from './view/Signup/Signup';
+import Admin from './view/Admin/Admin';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
@@ -52,6 +55,9 @@ class App extends Component {
             <Route path="/addElement" component={AddElement} />
             <Route path="/formStyle" component={FormStyle} />
             <Route path="/editElement" component={EditElement} />
+            <Route path="/signin" component={Signin} />
+            <Route path="/signup" component={Signup} />
+            <Route path="/admin" component={Admin} />
           </div>
         </BrowserRouter>
       </Provider>

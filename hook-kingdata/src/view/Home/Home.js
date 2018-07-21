@@ -36,7 +36,7 @@ class Home extends Component {
         <Link to={"/formStyle?id="+form.id}>{form.title}</Link>
       </div>
     )
-    console.log(formList);
+    // console.log(formList);
 
 
     return (
