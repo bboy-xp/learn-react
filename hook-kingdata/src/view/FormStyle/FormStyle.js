@@ -21,7 +21,7 @@ export default class FormStyle extends Component {
       fields: [],
       checkedList: [],
       next: "",
-      userData:{},
+      userData: {},
     }
     this.checkboxChange = this.checkboxChange.bind(this);
     this.radioChange = this.radioChange.bind(this);
@@ -35,8 +35,8 @@ export default class FormStyle extends Component {
 
   textChange(field) {
     const that = this;
-    return function(event) {
-      const newUserData = Object.assign(that.state.userData, {[field.name]: event.target.value});
+    return function (event) {
+      const newUserData = Object.assign(that.state.userData, { [field.name]: event.target.value });
       that.setState({
         userData: newUserData
       })
@@ -44,8 +44,8 @@ export default class FormStyle extends Component {
   }
   nparagraphTextChange(field) {
     const that = this;
-    return function(event) {
-      const newUserData = Object.assign(that.state.userData, {[field.name]: event.target.value});
+    return function (event) {
+      const newUserData = Object.assign(that.state.userData, { [field.name]: event.target.value });
       that.setState({
         userData: newUserData
       })
@@ -53,8 +53,8 @@ export default class FormStyle extends Component {
   }
   numChange(field) {
     const that = this;
-    return function(event) {
-      const newUserData = Object.assign(that.state.userData, {[field.name]: event.target.value});
+    return function (event) {
+      const newUserData = Object.assign(that.state.userData, { [field.name]: event.target.value });
       that.setState({
         userData: newUserData
       })
@@ -62,8 +62,8 @@ export default class FormStyle extends Component {
   }
   phoneChange(field) {
     const that = this;
-    return function(event) {
-      const newUserData = Object.assign(that.state.userData, {[field.name]: event.target.value});
+    return function (event) {
+      const newUserData = Object.assign(that.state.userData, { [field.name]: event.target.value });
       that.setState({
         userData: newUserData
       })
@@ -72,10 +72,10 @@ export default class FormStyle extends Component {
 
   checkboxChange(index, field) {
     const that = this;
-    return function(checkedList){
-      const newUserData = Object.assign(that.state.userData, {[field.name]: checkedList});
+    return function (checkedList) {
+      const newUserData = Object.assign(that.state.userData, { [field.name]: checkedList });
       that.setState({
-        ['checkedList'+index]: checkedList,
+        ['checkedList' + index]: checkedList,
         userData: newUserData
       })
       // console.log(field.name);
@@ -85,49 +85,67 @@ export default class FormStyle extends Component {
   radioChange(index, field) {
     // console.log(event.target.value);
     const that = this;
-    return function(event){
-      const newUserData = Object.assign(that.state.userData, {[field.name]: event.target.value});
+    return function (event) {
+      const newUserData = Object.assign(that.state.userData, { [field.name]: event.target.value });
       that.setState({
-        ['radioValue'+index]: event.target.value,
+        ['radioValue' + index]: event.target.value,
         userData: newUserData
       })
     }
   }
   selectChange(index, field) {
     const that = this;
-    return function(event) {
-      const newUserData = Object.assign(that.state.userData, {[field.name]: event.target.value});
+    return function (event) {
+      const newUserData = Object.assign(that.state.userData, { [field.name]: event.target.value });
       that.setState({
         userData: newUserData
       })
     }
   }
   async submit() {
-    const res = await axios.post('/postUserData',this.state.userData);
+    const res = await axios.post('/postUserData', this.state.userData);
     console.log(res);
-    if(res.data === "ok") {
+    if (res.data === "ok") {
       if (this.state.next) {
         window.location.href = "/formStyle?id=" + this.state.next;
       } else {
         window.location.href = "/";
       }
-    }else {
+    } else {
       alert('服务器故障，请重新填写表单，谢谢');
     }
   }
   async componentDidMount() {
     //获取url中的参数
-
     let url = window.location.href;
     let str = this.props.location.search;
     str = str.substring(1);
     let param = str.split('&');
+    //参数id和code
     let id = param[0].split('=')[1];
     let code = '';
-    if(param[1]){
+    //用切割字符串的方式拼接出redirect_uri
+    const newUrl = url.split('/');
+    url = 'http://hook.feit.me/' + newUrl[newUrl.length - 1];
+    // console.log(url);
+    //判断是否url带参数code，如果没带跳转授权页面使url带参数code
+    if (param[1]) {
       code = param[1].split('=')[1];;
+    } else {
+      window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx21174deccc6b6c4b&redirect_uri=${url}&response_type=code&scope=snsapi_base&state=123#wechat_redirect`;
     }
-    
+
+    //判断localStorage中是否有openid，如果没有将code发送到后端的/oauth路由上获取openid，并存入localStorage
+    if (!localStorage.getItem('openid')) {
+      const openid = await axios.post('/oauth', {
+        code: code
+      });
+      // console.log(openid.data);
+      localStorage.openid = openid.data;
+    } else {
+      console.log('localStorage中已存入openid');
+    }
+
     // console.log(code,id);
     const getFormRes = await axios.post('/getForm', {
       id: id,
@@ -140,16 +158,9 @@ export default class FormStyle extends Component {
         id: id
       }
     });
-    console.log(code);
-    const openid = await axios.post('/oauth',{
-      code: code
-    });
-    console.log(openid);
-    const newUrl = url.split('/');
-    url = 'http://hook.feit.me/' + newUrl[newUrl.length-1];
-    console.log(url);
+
+
     // 这里出现了跨域的问题
-    window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx21174deccc6b6c4b&redirect_uri=${url}&response_type=code&scope=snsapi_base&state=123#wechat_redirect`;
     // const openid = axios.get('https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx21174deccc6b6c4b&redirect_uri=http%3a%2f%2fhook.feit.me%2foauth&response_type=code&scope=snsapi_base&state=123#wechat_redirect');
     // console.log(openid);
   }
@@ -187,7 +198,7 @@ export default class FormStyle extends Component {
       if (field.type === "multiple_choice") {
         return <div key={index}>
           <div className="inputQuestion">{field.name}</div>
-          <CheckboxGroup value={this.state['checkedList'+index]} onChange={this.checkboxChange(index,field)} >
+          <CheckboxGroup value={this.state['checkedList' + index]} onChange={this.checkboxChange(index, field)} >
             {field.choice.map((item, index) =>
               <div key={index}>
                 <Checkbox value={item.value}>{item.value}</Checkbox>
@@ -199,7 +210,7 @@ export default class FormStyle extends Component {
       if (field.type === "single_choice") {
         return <div key={index}>
           <div className="inputQuestion">{field.name}</div>
-          <RadioGroup value={this.state['radioValue'+index]} onChange={this.radioChange(index,field)}>
+          <RadioGroup value={this.state['radioValue' + index]} onChange={this.radioChange(index, field)}>
             {field.choice.map((item, index) =>
               <div key={index}>
                 <Radio value={item.value}>{item.value}</Radio>
@@ -211,7 +222,7 @@ export default class FormStyle extends Component {
       if (field.type === "drop_down") {
         return <div key={index}>
           <div className="inputQuestion">{field.name}</div>
-          <Select data={field.choice} onChange={this.selectChange(index,field)} optionText="value" optionValue="value"></Select>
+          <Select data={field.choice} onChange={this.selectChange(index, field)} optionText="value" optionValue="value"></Select>
         </div>
       }
     }

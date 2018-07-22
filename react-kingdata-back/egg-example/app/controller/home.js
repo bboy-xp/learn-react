@@ -62,7 +62,10 @@ class HomeController extends Controller {
   async oauth() {
     const ctx = this.ctx;
     const code = ctx.request.body.code;
+    console.log('走打这里了');
+    console.log(code);
     const codeData = await axios.get(`https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx21174deccc6b6c4b&secret=903087872adb2b41d2a4cea77a53446f&code=${code}&grant_type=authorization_code`); 
+    console.log(codeData.data);
     const access_token = codeData.data.access_token;
     const openid = codeData.data.openid;
     console.log(openid);
