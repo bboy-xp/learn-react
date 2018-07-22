@@ -61,14 +61,12 @@ class HomeController extends Controller {
   }
   async oauth() {
     const ctx = this.ctx;
-    console.log(ctx.query.code);
-    const code = ctx.query.code;
+    const code = ctx.request.body.code;
     const codeData = await axios.get(`https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx21174deccc6b6c4b&secret=903087872adb2b41d2a4cea77a53446f&code=${code}&grant_type=authorization_code`); 
     const access_token = codeData.data.access_token;
     const openid = codeData.data.openid;
-    console.log(access_token,openid);
-    console.log('走到这里了');
-    ctx.body = 'ok';
+    console.log(openid);
+    ctx.body = openid;
   }
 }
 

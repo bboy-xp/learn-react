@@ -117,25 +117,39 @@ export default class FormStyle extends Component {
   }
   async componentDidMount() {
     //获取url中的参数
-    const url = window.location.href;
-    let id = this.props.location.search;
-    id = id.split('=')[1];
-    const res = await axios.post('/getForm', {
+
+    let url = window.location.href;
+    let str = this.props.location.search;
+    str = str.substring(1);
+    let param = str.split('&');
+    let id = param[0].split('=')[1];
+    let code = '';
+    if(param[1]){
+      code = param[1].split('=')[1];;
+    }
+    
+    // console.log(code,id);
+    const getFormRes = await axios.post('/getForm', {
       id: id,
-      url: url
     });
     //将form的fields传入state中
     this.setState({
-      fields: res.data[0].fields,
-      next: res.data[0].next,
+      fields: getFormRes.data[0].fields,
+      next: getFormRes.data[0].next,
       userData: {
         id: id
       }
     });
-    // console.log(window.location.href);
-
+    console.log(code);
+    const openid = await axios.post('/oauth',{
+      code: code
+    });
+    console.log(openid);
+    const newUrl = url.split('/');
+    url = 'http://hook.feit.me/' + newUrl[newUrl.length-1];
+    console.log(url);
     // 这里出现了跨域的问题
-    window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx21174deccc6b6c4b&redirect_uri=http%3a%2f%2fhook.feit.me%2foauth&response_type=code&scope=snsapi_base&state=123#wechat_redirect';
+    window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx21174deccc6b6c4b&redirect_uri=${url}&response_type=code&scope=snsapi_base&state=123#wechat_redirect`;
     // const openid = axios.get('https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx21174deccc6b6c4b&redirect_uri=http%3a%2f%2fhook.feit.me%2foauth&response_type=code&scope=snsapi_base&state=123#wechat_redirect');
     // console.log(openid);
   }

@@ -7,13 +7,18 @@ import FormStyle from './view/FormStyle/FormStyle';
 import EditElement from './view/EditElement/EditElement';
 import Signin from './view/Signin/Signin';
 import Signup from './view/Signup/Signup';
-import Admin from './view/Admin/Admin';
+import Update from './view/Admin/Update/Update';
+import List from './view/Admin/List/List';
+import AdministratorList from './view/Admin/AdministratorList/AdministratorList';
+import AdministratorUpdate from './view/Admin/AdministratorUpdate/AdministratorUpdate';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
 import './App.css';
 //引入zent组件库样式
 import 'zent/css/index.css';
+//引入element-ui
+import 'element-theme-default';
 
 function todos(state = {}, action) {
   switch (action.type) {
@@ -57,7 +62,10 @@ class App extends Component {
             <Route path="/editElement" component={EditElement} />
             <Route path="/signin" component={Signin} />
             <Route path="/signup" component={Signup} />
-            <Route path="/admin" component={Admin} />
+            <Route path="/admin/update" component={Update} />
+            <Route path="/admin/list" component={List} />
+            <Route path="/admin/administratorList" component={AdministratorList} />
+            <Route path="/admin/administratorUpdate" component={AdministratorUpdate} />
           </div>
         </BrowserRouter>
       </Provider>

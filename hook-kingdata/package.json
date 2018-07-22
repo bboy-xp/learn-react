@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "element-react": "^1.4.20",
+    "element-theme-default": "^1.4.13",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-redux": "^5.0.7",
@@ -22,27 +24,31 @@
   "proxy": {
     "/saveForm": {
       "target": "http://127.0.0.1:7001",
-      "changeOrigin":true
+      "changeOrigin": true
     },
     "/getAllForm": {
       "target": "http://127.0.0.1:7001",
-      "changeOrigin":true
+      "changeOrigin": true
     },
     "/getNextForm": {
       "target": "http://127.0.0.1:7001",
-      "changeOrigin":true
+      "changeOrigin": true
     },
     "/getForm": {
       "target": "http://127.0.0.1:7001",
-      "changeOrigin":true
+      "changeOrigin": true
     },
     "/postUserData": {
       "target": "http://127.0.0.1:7001",
-      "changeOrigin":true
+      "changeOrigin": true
     },
     "/updateUserdata": {
       "target": "http://127.0.0.1:7001",
-      "changeOrigin":true
+      "changeOrigin": true
+    },
+    "/oauth": {
+      "target": "http://127.0.0.1:7001",
+      "changeOrigin": true
     }
   }
 }

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from 'axios';
 import { Notify } from 'zent';
 
-export default class Signin extends Component {
+export default class Update extends Component {
   constructor(props) {
     super(props);
     this.state = {
