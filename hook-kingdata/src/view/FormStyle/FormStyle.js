@@ -22,6 +22,7 @@ export default class FormStyle extends Component {
       checkedList: [],
       next: "",
       userData: {},
+      nextUrl:''
     }
     this.checkboxChange = this.checkboxChange.bind(this);
     this.radioChange = this.radioChange.bind(this);
@@ -103,11 +104,15 @@ export default class FormStyle extends Component {
     }
   }
   async submit() {
-    const res = await axios.post('/postUserData', this.state.userData);
+    const openid = localStorage.getItem('openid');
+    const userData = this.state.userData;
+    userData.openid = openid;
+    const nextUrl = this.state.nextUrl;
+    const res = await axios.post('/postUserData', userData);
     console.log(res);
     if (res.data === "ok") {
       if (this.state.next) {
-        window.location.href = "/formStyle?id=" + this.state.next;
+        window.location.href = "/formStyle?id=" + this.state.next + nextUrl;
       } else {
         window.location.href = "/";
       }
@@ -120,6 +125,10 @@ export default class FormStyle extends Component {
     let url = window.location.href;
     let str = this.props.location.search;
     str = str.substring(1);
+    const nextUrl = str.substring(8);
+    this.setState({
+      nextUrl: nextUrl
+    });
     let param = str.split('&');
     //参数id和code
     let id = param[0].split('=')[1];
@@ -143,6 +152,7 @@ export default class FormStyle extends Component {
       // console.log(openid.data);
       localStorage.openid = openid.data;
     } else {
+
       console.log('localStorage中已存入openid');
     }
 
