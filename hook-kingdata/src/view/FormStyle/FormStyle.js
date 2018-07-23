@@ -118,7 +118,7 @@ export default class FormStyle extends Component {
       if (this.state.next) {
         window.location.href = "/formStyle?id=" + this.state.next + nextUrl;
       } else {
-        window.location.href = "/";
+        window.location.href = "/success";
       }
     } else {
       alert('服务器故障，请重新填写表单，谢谢');

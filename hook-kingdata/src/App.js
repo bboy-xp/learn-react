@@ -5,12 +5,11 @@ import CreateForm from './view/CreateForm/CreateForm';
 import AddElement from './view/AddElement/AddElement';
 import FormStyle from './view/FormStyle/FormStyle';
 import EditElement from './view/EditElement/EditElement';
-import Signin from './view/Signin/Signin';
-import Signup from './view/Signup/Signup';
 import Update from './view/Admin/Update/Update';
 import List from './view/Admin/List/List';
 import AdministratorList from './view/Admin/AdministratorList/AdministratorList';
 import AdministratorUpdate from './view/Admin/AdministratorUpdate/AdministratorUpdate';
+import Success from './view/Success/Success';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
@@ -59,9 +58,8 @@ class App extends Component {
             <Route path="/createForm" component={CreateForm} />
             <Route path="/addElement" component={AddElement} />
             <Route path="/formStyle" component={FormStyle} />
+            <Route path="/success" component={Success} />
             <Route path="/editElement" component={EditElement} />
-            <Route path="/signin" component={Signin} />
-            <Route path="/signup" component={Signup} />
             <Route path="/admin/update" component={Update} />
             <Route path="/admin/list" component={List} />
             <Route path="/admin/administratorList" component={AdministratorList} />
