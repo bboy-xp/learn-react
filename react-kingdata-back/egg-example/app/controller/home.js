@@ -53,6 +53,28 @@ class HomeController extends Controller {
     });
     ctx.body = targetUserdata;
   }
+  async getUserdataByOpenId() {
+    const ctx = this.ctx;
+    const openid = ctx.request.body.openid;
+    console.log(openid);
+    const Userdata = ctx.model.Userdata;
+    const targetUserdata = await Userdata.find({
+      openid: openid
+    });
+    ctx.body = targetUserdata;
+  }
+  async getUserdataByOpenIdAndId() {
+    const ctx = this.ctx;
+    const openid = ctx.request.body.openid;
+    const id = ctx.request.body.id;
+    console.log(openid);
+    const Userdata = ctx.model.Userdata;
+    const targetUserdata = await Userdata.find({
+      openid: openid,
+      id: id
+    });
+    ctx.body = targetUserdata;
+  }
   postUserData() {
     const ctx = this.ctx;
     
@@ -60,16 +82,32 @@ class HomeController extends Controller {
     const userdata = new Userdata({
       userdata: ctx.request.body.userData,
       openid: ctx.request.body.openid,
-      id: ctx.request.body.id
+      id: ctx.request.body.id,
+      formName: ctx.request.body.formName
     })
     // console.log(ctx.request.body);
     userdata.save();
     ctx.body = 'ok';
   }
-  updateUserdata() {
+  async updateUserdata() {
     const ctx = this.ctx;
-    console.log(ctx.request.body);
-    ctx.body = 'ok';
+    const res = ctx.request.body
+    const id = res.id;
+    const openid = res.openid;
+    const newUserdata = res.userdata;
+    const formName = res.formName;
+    //更新userdata中的数据
+    const Userdata = ctx.model.Userdata;
+    const update = await Userdata.update({
+      id: id,
+      openid: openid
+    },{
+      userdata: newUserdata,
+      openid: openid,
+      id: id,
+      formName: formName
+    });
+    ctx.body = update;
   }
   async oauth() {
     const ctx = this.ctx;

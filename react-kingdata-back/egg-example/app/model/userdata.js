@@ -3,7 +3,8 @@ module.exports = app => {
   const UserdataSchema = new mongoose.Schema({
     userdata: { type: Object },
     openid: { type: String },
-    id: { type: String }
+    id: { type: String },
+    formName: { type: String },
   }, {
       timestamps: true,
     });

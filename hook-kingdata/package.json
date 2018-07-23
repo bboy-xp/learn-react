@@ -53,6 +53,14 @@
     "/getUserdata": {
       "target": "http://127.0.0.1:7001",
       "changeOrigin": true
+    },
+    "/getUserdataByOpenId": {
+      "target": "http://127.0.0.1:7001",
+      "changeOrigin": true
+    },
+    "/getUserdataByOpenIdAndId": {
+      "target": "http://127.0.0.1:7001",
+      "changeOrigin": true
     }
   }
 }

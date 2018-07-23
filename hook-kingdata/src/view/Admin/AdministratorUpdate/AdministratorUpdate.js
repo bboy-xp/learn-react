@@ -40,9 +40,7 @@ export default class Update extends Component {
 
     const formdataKey = Object.keys(this.state.formdata);
     if (formdataKey.length !== 0 && this.state.userdata.length !== 0) {
-      console.log('走到这里了');
       const formdata = this.state.formdata[0].fields;
-      console.log(this.state.formdata);
       formdata.map((field, index) => {
         newFormdata.push({
           label: field.name,

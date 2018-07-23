@@ -7,11 +7,7 @@ import axios from 'axios';
 const CheckboxGroup = Checkbox.Group;
 
 const RadioGroup = Radio.Group;
-const data = [
-  { id: 1, name: 'Option 1' },
-  { id: 2, name: 'Option 2' },
-  { id: 3, name: 'Option 3' }
-];
+
 export default class FormStyle extends Component {
 
   constructor(props) {
@@ -23,7 +19,8 @@ export default class FormStyle extends Component {
       next: "",
       userData: {},
       nextUrl:'',
-      id: ''
+      id: '',
+      formName:''
     }
     this.checkboxChange = this.checkboxChange.bind(this);
     this.radioChange = this.radioChange.bind(this);
@@ -107,12 +104,14 @@ export default class FormStyle extends Component {
   async submit() {
     const openid = localStorage.getItem('openid');
     const id = this.state.id;
+    const formName = this.state.formName;
     const userData = this.state.userData;
     const nextUrl = this.state.nextUrl;
     const res = await axios.post('/postUserData', {
       userData: userData,
       openid: openid,
-      id: id
+      id: id,
+      formName: formName
     });
     console.log(res);
     if (res.data === "ok") {
@@ -168,13 +167,16 @@ export default class FormStyle extends Component {
     const getFormRes = await axios.post('/getForm', {
       id: id,
     });
+    console.log(getFormRes.data);
+    
     //将form的fields传入state中
     this.setState({
       fields: getFormRes.data[0].fields,
       next: getFormRes.data[0].next,
       userData: {
         id: id
-      }
+      },
+      formName: getFormRes.data[0].title,
     });
 
 

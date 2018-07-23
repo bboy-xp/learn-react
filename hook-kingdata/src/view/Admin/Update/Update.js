@@ -6,16 +6,10 @@ export default class Update extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userdata: {
-        "id": "py2zW",
-        "姓名": "施心平",
-        "动机": "吃药",
-        "性别": "男",
-        "爱好": ["11", "22", "33", "44"],
-        "年龄": "20",
-        "手机": "18846084097",
-        "专业": "44"
-      }
+      userdata: {},
+      id: '',
+      openid: '',
+      formName:'',
     };
     this.inputChange = this.inputChange.bind(this);
     this.submit = this.submit.bind(this);
@@ -33,10 +27,18 @@ export default class Update extends Component {
     }
   }
   async submit() {
-    console.log(this.state.userdata);
-    const res = await axios.post('/updateUserdata',this.state.userdata);
+    const userdata = this.state.userdata;
+    const id = this.state.id;
+    const openid = this.state.openid;
+    const formName = this.state.formName;
+    const res = await axios.post('/updateUserdata',{
+      userdata: userdata,
+      id: id,
+      openid: openid,
+      formName: formName
+    });
     console.log(res);
-    if(res.data === 'ok') {
+    if(res.data.ok === 1) {
       alert('修改成功');
       window.location.reload();
     }else{
@@ -44,8 +46,23 @@ export default class Update extends Component {
     }
   }
 
-  componentDidMount() {
-
+  async componentDidMount() {
+    const idStr = window.location.search;
+    const id = idStr.split('=')[1];
+    const openid = localStorage.getItem('openid');
+    this.setState({
+      id: id,
+      openid: openid
+    })
+    const res = await axios.post('/getUserdataByOpenIdAndId',{
+      id: id,
+      openid: openid
+    })
+    console.log(res.data);
+    this.setState({
+      userdata: res.data[0].userdata,
+      formName: res.data[0].formName
+    });
   }
   render() {
     const userdata = this.state.userdata;

@@ -14,4 +14,6 @@ module.exports = app => {
   router.post('/oauth',controller.home.oauth);
   router.post('/updateUserdata',controller.home.updateUserdata);
   router.post('/getUserdata',controller.home.getUserdata);
+  router.post('/getUserdataByOpenId',controller.home.getUserdataByOpenId);
+  router.post('/getUserdataByOpenIdAndId',controller.home.getUserdataByOpenIdAndId);
 };

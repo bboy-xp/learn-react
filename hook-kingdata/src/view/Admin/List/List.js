@@ -11,7 +11,10 @@ export default class List extends Component {
   }
 
   async componentDidMount() {
-    const res = await axios.get('/getAllForm');
+    const openid = localStorage.getItem('openid');
+    const res = await axios.post('/getUserdataByOpenId',{
+      openid: openid
+    });
     console.log(res.data);
     this.setState({
       formList: res.data
@@ -21,7 +24,7 @@ export default class List extends Component {
     const list = this.state.formList;
     const item = list.map((e, index) =>
       <div key={index}>
-        <Link to='/admin/update'>{e.title}</Link>
+        <Link to={'/admin/update?id=' + e.id}>{e.formName}</Link>
       </div>
     )
     return (
