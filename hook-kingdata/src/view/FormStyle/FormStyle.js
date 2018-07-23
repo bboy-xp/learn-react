@@ -22,7 +22,8 @@ export default class FormStyle extends Component {
       checkedList: [],
       next: "",
       userData: {},
-      nextUrl:''
+      nextUrl:'',
+      id: ''
     }
     this.checkboxChange = this.checkboxChange.bind(this);
     this.radioChange = this.radioChange.bind(this);
@@ -105,10 +106,14 @@ export default class FormStyle extends Component {
   }
   async submit() {
     const openid = localStorage.getItem('openid');
+    const id = this.state.id;
     const userData = this.state.userData;
-    userData.openid = openid;
     const nextUrl = this.state.nextUrl;
-    const res = await axios.post('/postUserData', userData);
+    const res = await axios.post('/postUserData', {
+      userData: userData,
+      openid: openid,
+      id: id
+    });
     console.log(res);
     if (res.data === "ok") {
       if (this.state.next) {
@@ -132,6 +137,9 @@ export default class FormStyle extends Component {
     let param = str.split('&');
     //参数id和code
     let id = param[0].split('=')[1];
+    this.setState({
+      id: id
+    });
     let code = '';
     //用切割字符串的方式拼接出redirect_uri
     const newUrl = url.split('/');

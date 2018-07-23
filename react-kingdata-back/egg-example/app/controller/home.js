@@ -44,11 +44,23 @@ class HomeController extends Controller {
 
     ctx.body = targetForm;
   }
+  async getUserdata() {
+    const ctx = this.ctx;
+    const id = ctx.request.body.id;
+    const Userdata = ctx.model.Userdata;
+    const targetUserdata = await Userdata.find({
+      id: id
+    });
+    ctx.body = targetUserdata;
+  }
   postUserData() {
     const ctx = this.ctx;
+    
     const Userdata = ctx.model.Userdata;
     const userdata = new Userdata({
-      userdata: ctx.request.body
+      userdata: ctx.request.body.userData,
+      openid: ctx.request.body.openid,
+      id: ctx.request.body.id
     })
     // console.log(ctx.request.body);
     userdata.save();

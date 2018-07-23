@@ -21,7 +21,7 @@ export default class AdministratorList extends Component {
     const list = this.state.formList;
     const item = list.map((e, index) =>
       <div key={index}>
-        <Link to='/admin/administratorUpdate'>{e.title}</Link>
+        <Link to={'/admin/administratorUpdate?id='+e.id}>{e.title}</Link>
       </div>
     )
     

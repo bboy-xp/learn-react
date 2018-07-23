@@ -13,4 +13,5 @@ module.exports = app => {
   router.post('/postUserData',controller.home.postUserData);
   router.post('/oauth',controller.home.oauth);
   router.post('/updateUserdata',controller.home.updateUserdata);
+  router.post('/getUserdata',controller.home.getUserdata);
 };
