@@ -1,0 +1,54 @@
+.container {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 7vw;
+  width: 100%;
+  height: 7vh;
+  border-bottom: 1px solid #cfbebe;
+  margin-bottom: 2vh;
+}
+.createBtn {
+  background-color: #ffc400;
+  width: 60vw;
+  height: 6vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3vw;
+  margin: 3vh;
+  letter-spacing: 4px;
+  font-size: 4vw;
+}
+.formImg{
+  width: 6vw;
+  height: 6vw;
+  margin-bottom: -1%;
+  margin-left: 2vw;
+  
+}
+.formListContainer {
+  flex: 1;
+  overflow: scroll;
+  
+}
+.createdFormTitle {
+  margin-bottom: 3vw;
+}
+.createdForm {
+  font-size: 7vw;
+}
+.formLink {
+  margin-bottom: 2vw;
+}
+.linkText {
+  color: black;
+}

@@ -6,15 +6,6 @@
   flex-direction: column;
   align-items: center;
 }
-
-
-
-.listContainer {
-  margin: 3vw 5vw;
-  width: 80vw;
-  flex-basis: 75%;
-  overflow: scroll;
-}
 .title {
   display: flex;
   align-items: center;
@@ -25,14 +16,13 @@
   border-bottom: 1px solid #cfbebe;
   margin-bottom: 2vh;
 }
-.inputQuestion {
-  font-size: 5vw;
-  font-weight: bold;
-  margin-bottom: 2vw;
+.boxContainer {
+  flex-basis: 30%;
 }
-.choiceStyle {
-  margin-bottom: 2vw;
+.inputBox2 {
+  margin-bottom: 10vw
 }
-.elementContainer {
-  margin-bottom: 3vw;
+.inputText {
+  font-size: 4vw;
+  margin-right: 4vw;
 }

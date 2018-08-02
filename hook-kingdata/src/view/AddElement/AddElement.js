@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Select } from 'zent';
 import ShowOption from '../../components/ShowOption/ShowOption';
+import "./AddElement.css"
 
 const data = [
   { text: "单行文本", value: "single_line_text", hidden: false },
@@ -53,12 +54,18 @@ export default class AddElement extends Component {
     const changeProps = this.state.change ? true : null;
     return (
 
-      <div>
-        <span>字段名称</span>
-        <input type="text" onChange={this.addName} />
-        <br />
-        <span>字段类型</span>
-        <Select data={data} onChange={this.addOption} />
+      <div className="container">
+        <div className="title">添加字段</div>
+        <div className="boxContainer">
+          <div className="inputBox2">
+            <span className="inputText">字段名称</span>
+            <input type="text" onChange={this.addName} />
+          </div>
+          <div className="inputBox2">
+            <span className="inputText">字段类型</span>
+            <Select data={data} onChange={this.addOption} />
+          </div>
+        </div>
         <ShowOption history={this.props.history} name={this.state.name} type={this.state.type} changeProps={changeProps} />
 
       </div>

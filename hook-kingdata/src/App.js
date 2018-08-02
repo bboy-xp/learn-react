@@ -41,6 +41,8 @@ function todos(state = {}, action) {
       return Object.assign({}, state, { id: action.id });
     case 'PUSH_NEXT':
       return Object.assign({}, state, { next: action.next });
+    case 'PUSH_ISREPEATED':
+      return Object.assign({}, state, { isRepeated: action.isRepeated });
     default:
       break;
   }

@@ -4,6 +4,7 @@ module.exports = app => {
     title: { type: String },
     next: { type: String },
     id: { type: String },
+    repeated: { type: Boolean },
     describe: { type: String },
     fields: { type: Array }
   }, {

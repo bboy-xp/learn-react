@@ -1,0 +1,32 @@
+.newContainer {
+  height: 97vh;
+  width: 95vw;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 5vw;
+  margin-top: 3vh;
+}
+.valueBox {
+  margin: 5vw;
+}
+.valueContainer {
+  margin: 3vw;
+}
+.itemContainer {
+  flex-basis: 80%;
+  overflow: scroll;
+}
+.submitBtn {
+  background-color: #ffc400;
+  width: 60vw;
+  height: 6vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3vw;
+  margin: auto;
+  letter-spacing: 4px;
+  font-size: 4vw;
+}

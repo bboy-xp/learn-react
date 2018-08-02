@@ -10,6 +10,7 @@ class HomeController extends Controller {
   saveForm() {
     const ctx = this.ctx;
     const res = ctx.request.body;
+    console.log(res);
     const Formdata = ctx.model.Formdata;
 
     const formdata = new Formdata({
@@ -17,6 +18,7 @@ class HomeController extends Controller {
       describe: res.describe,
       next: res.next,
       id: res.id,
+      repeated: res.repeated,
       fields: res.fields
     })
     formdata.save();

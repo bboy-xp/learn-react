@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import "./List.css";
 
 export default class List extends Component {
   constructor(props) {
@@ -12,7 +13,7 @@ export default class List extends Component {
 
   async componentDidMount() {
     const openid = localStorage.getItem('openid');
-    const res = await axios.post('/getUserdataByOpenId',{
+    const res = await axios.post('/getUserdataByOpenId', {
       openid: openid
     });
     console.log(res.data);
@@ -23,13 +24,16 @@ export default class List extends Component {
   render() {
     const list = this.state.formList;
     const item = list.map((e, index) =>
-      <div key={index}>
-        <Link to={'/admin/update?id=' + e.id}>{e.formName}</Link>
+      <div className="linkBox" key={index}>
+        <Link className="linkText" to={'/admin/update?id=' + e.id}>{index + 1} · {e.formName}</Link>
       </div>
     )
     return (
-      <div>
-        {item}
+      <div className="newContainer">
+        <div className="title">已填写的表单</div>
+        <div className="itemContainer">
+          {item}
+        </div>
       </div>
 
 

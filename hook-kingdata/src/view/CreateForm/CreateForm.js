@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
+import "./CreateForm.css";
+
 class CreateForm extends Component {
 
   constructor(props) {
@@ -41,13 +43,18 @@ class CreateForm extends Component {
 
   render() {
     return (
-      <div>
-        <span>表单名称</span>
-        <input value={this.state.title || ''} onChange={this.getTitle}></input>
-        <span>表单描述</span>
-        <input value={this.state.describe || ''} onChange={this.getDescribe}></input>
+      <div className="container">
+        <div className="title">首页</div>
+        <div className="inputContainer">
+          <span className="inputText">表单名称</span>
+          <input value={this.state.title || ''} onChange={this.getTitle}></input>
+        </div>
+        <div className="inputContainer">
+          <span className="inputText"> 表单描述</span>
+          <input value={this.state.describe || ''} onChange={this.getDescribe}></input>
+        </div>
         <div>
-          <button onClick={this.createChildForm}>点击创建子表单</button>
+          <div className="createBtn2" onClick={this.createChildForm}>点击创建子表单</div>
         </div>
       </div>
     )

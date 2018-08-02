@@ -1,0 +1,26 @@
+
+.submitBtn {
+  background-color: #ffc400;
+  width: 60vw;
+  height: 6vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3vw;
+  margin: 3vh;
+  letter-spacing: 4px;
+  font-size: 4vw;
+}
+.deleteBtn {
+  height: 6vw;
+  width: 6vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8vw;
+
+}
+.choiceContainer {
+  display: flex;
+  margin-bottom: 3vw;
+}

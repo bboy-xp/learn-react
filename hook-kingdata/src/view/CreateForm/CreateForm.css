@@ -6,15 +6,6 @@
   flex-direction: column;
   align-items: center;
 }
-
-
-
-.listContainer {
-  margin: 3vw 5vw;
-  width: 80vw;
-  flex-basis: 75%;
-  overflow: scroll;
-}
 .title {
   display: flex;
   align-items: center;
@@ -25,14 +16,22 @@
   border-bottom: 1px solid #cfbebe;
   margin-bottom: 2vh;
 }
-.inputQuestion {
-  font-size: 5vw;
-  font-weight: bold;
-  margin-bottom: 2vw;
+.createBtn2 {
+  background-color: #ffae00;
+  width: 60vw;
+  height: 6vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3vw;
+  letter-spacing: 4px;
+  font-size: 4vw;
+  margin: 0;
 }
-.choiceStyle {
-  margin-bottom: 2vw;
+.inputContainer {
+  margin-bottom: 5vw;
 }
-.elementContainer {
-  margin-bottom: 3vw;
+.inputText {
+  font-size: 4vw;
+  margin-right: 4vw;
 }

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Radio, Checkbox, Select } from 'zent';
 import './FormStyle.css';
 import axios from 'axios';
+import Resubmit from '../../components/Resubmit/Resubmit';
 
 const CheckboxGroup = Checkbox.Group;
 
@@ -18,9 +19,11 @@ export default class FormStyle extends Component {
       checkedList: [],
       next: "",
       userData: {},
-      nextUrl:'',
+      nextUrl: '',
       id: '',
-      formName:''
+      formName: '',
+      repeated: false,
+      title: '',
     }
     this.checkboxChange = this.checkboxChange.bind(this);
     this.radioChange = this.radioChange.bind(this);
@@ -30,6 +33,7 @@ export default class FormStyle extends Component {
     this.nparagraphTextChange = this.nparagraphTextChange.bind(this);
     this.phoneChange = this.phoneChange.bind(this);
     this.selectChange = this.selectChange.bind(this);
+    this.resubmit = this.resubmit.bind(this);
   }
 
   textChange(field) {
@@ -124,6 +128,24 @@ export default class FormStyle extends Component {
       alert('服务器故障，请重新填写表单，谢谢');
     }
   }
+  async resubmit() {
+    const openid = localStorage.getItem('openid');
+    const id = this.state.id;
+    const formName = this.state.formName;
+    const userData = this.state.userData;
+    const res = await axios.post('/postUserData', {
+      userData: userData,
+      openid: openid,
+      id: id,
+      formName: formName
+    });
+    console.log(res);
+    if (res.data === "ok") {
+      window.location.reload();
+    } else {
+      alert('服务器故障，请重新填写表单，谢谢');
+    }
+  }
   async componentDidMount() {
     //获取url中的参数
     let url = window.location.href;
@@ -145,38 +167,42 @@ export default class FormStyle extends Component {
     url = 'http://hook.feit.me/' + newUrl[newUrl.length - 1];
     // console.log(url);
     //判断是否url带参数code，如果没带跳转授权页面使url带参数code
-    if (param[1]) {
-      code = param[1].split('=')[1];;
-    } else {
-      window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx21174deccc6b6c4b&redirect_uri=${url}&response_type=code&scope=snsapi_base&state=123#wechat_redirect`;
-    }
 
-    //判断localStorage中是否有openid，如果没有将code发送到后端的/oauth路由上获取openid，并存入localStorage
-    if (!localStorage.getItem('openid')) {
-      const openid = await axios.post('/oauth', {
-        code: code
-      });
-      // console.log(openid.data);
-      localStorage.openid = openid.data;
-    } else {
+    //临时注释（frp不好使本地测试）
+    // if (param[1]) {
+    //   code = param[1].split('=')[1];;
+    // } else {
+    //   window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx21174deccc6b6c4b&redirect_uri=${url}&response_type=code&scope=snsapi_base&state=123#wechat_redirect`;
+    // }
 
-      console.log('localStorage中已存入openid');
-    }
+    // //判断localStorage中是否有openid，如果没有将code发送到后端的/oauth路由上获取openid，并存入localStorage
+    // if (!localStorage.getItem('openid')) {
+    //   const openid = await axios.post('/oauth', {
+    //     code: code
+    //   });
+    //   // console.log(openid.data);
+    //   localStorage.openid = openid.data;
+    // } else {
+
+    //   console.log('localStorage中已存入openid');
+    // }
 
     // console.log(code,id);
     const getFormRes = await axios.post('/getForm', {
       id: id,
     });
     console.log(getFormRes.data);
-    
+
     //将form的fields传入state中
     this.setState({
       fields: getFormRes.data[0].fields,
+      title: getFormRes.data[0].title,
       next: getFormRes.data[0].next,
       userData: {
         id: id
       },
       formName: getFormRes.data[0].title,
+      repeated: getFormRes.data[0].repeated
     });
 
 
@@ -185,6 +211,7 @@ export default class FormStyle extends Component {
     // console.log(openid);
   }
 
+
   render() {
     const fields = this.state.fields;
     const list = fields.map((field, index) => {
@@ -192,35 +219,35 @@ export default class FormStyle extends Component {
       //   <span>{field.name}</span>
       // </div>
       if (field.type === "number") {
-        return <div key={index}>
-          <div className="inputQuestion">{field.name}</div>
+        return <div className="elementContainer" key={index}>
+          <div className="inputQuestion">{index + 1} · {field.name}</div>
           <input onChange={this.numChange(field)} className="inputBox" />
         </div>
       }
       if (field.type === "single_line_text") {
-        return <div key={index}>
-          <div className="inputQuestion">{field.name}</div>
+        return <div className="elementContainer" key={index}>
+          <div className="inputQuestion">{index + 1} · {field.name}</div>
           <input onChange={this.textChange(field)} className="inputBox" />
         </div>
       }
       if (field.type === "paragraph_text") {
-        return <div key={index}>
-          <div className="inputQuestion">{field.name}</div>
+        return <div className="elementContainer" key={index}>
+          <div className="inputQuestion">{index + 1} · {field.name}</div>
           <textarea onChange={this.nparagraphTextChange(field)} className="textareaStyle" auto-focus="true" maxLength="400" cols="30" rows="10"></textarea>
         </div>
       }
       if (field.type === "phone") {
-        return <div key={index}>
-          <div className="inputQuestion">{field.name}</div>
+        return <div className="elementContainer" key={index}>
+          <div className="inputQuestion">{index + 1} · {field.name}</div>
           <input onChange={this.phoneChange(field)} className="inputBox" />
         </div>
       }
       if (field.type === "multiple_choice") {
-        return <div key={index}>
-          <div className="inputQuestion">{field.name}</div>
+        return <div className="elementContainer" key={index}>
+          <div className="inputQuestion">{index + 1} · {field.name}</div>
           <CheckboxGroup value={this.state['checkedList' + index]} onChange={this.checkboxChange(index, field)} >
             {field.choice.map((item, index) =>
-              <div key={index}>
+              <div className="choiceStyle" key={index}>
                 <Checkbox value={item.value}>{item.value}</Checkbox>
               </div>
             )}
@@ -228,11 +255,11 @@ export default class FormStyle extends Component {
         </div>
       }
       if (field.type === "single_choice") {
-        return <div key={index}>
-          <div className="inputQuestion">{field.name}</div>
+        return <div className="elementContainer" key={index}>
+          <div className="inputQuestion">{index + 1} · {field.name}</div>
           <RadioGroup value={this.state['radioValue' + index]} onChange={this.radioChange(index, field)}>
             {field.choice.map((item, index) =>
-              <div key={index}>
+              <div className="choiceStyle" key={index}>
                 <Radio value={item.value}>{item.value}</Radio>
               </div>
             )}
@@ -240,20 +267,25 @@ export default class FormStyle extends Component {
         </div>
       }
       if (field.type === "drop_down") {
-        return <div key={index}>
-          <div className="inputQuestion">{field.name}</div>
+        return <div className="elementContainer" key={index}>
+          <div className="inputQuestion">{index + 1} · {field.name}</div>
           <Select data={field.choice} onChange={this.selectChange(index, field)} optionText="value" optionValue="value"></Select>
         </div>
       }
     }
     )
 
+    const repeated = this.state.repeated;
+
+
     return (
-      <div>
-        <div>
+      <div className="container">
+        <div className="title">{this.state.title}</div>
+        <div className="listContainer">
           {list}
-          <button onClick={this.submit} className="submitBtn">提交</button>
         </div>
+        <button onClick={this.submit} className="submitBtn">提交</button>
+        <Resubmit resubmit={this.resubmit} repeated={repeated} />
       </div>
     )
   }

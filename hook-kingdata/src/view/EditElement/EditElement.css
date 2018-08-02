@@ -7,14 +7,6 @@
   align-items: center;
 }
 
-
-
-.listContainer {
-  margin: 3vw 5vw;
-  width: 80vw;
-  flex-basis: 75%;
-  overflow: scroll;
-}
 .title {
   display: flex;
   align-items: center;
@@ -25,14 +17,22 @@
   border-bottom: 1px solid #cfbebe;
   margin-bottom: 2vh;
 }
-.inputQuestion {
-  font-size: 5vw;
-  font-weight: bold;
-  margin-bottom: 2vw;
+.btnStyle {
+  background-color: #ffc400;
+  width: 60vw;
+  height: 6vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3vw;
+  margin: 3vh;
+  letter-spacing: 4px;
+  font-size: 4vw;
 }
-.choiceStyle {
-  margin-bottom: 2vw;
+.elementList {
+  flex-basis: 30%;
+  overflow: scroll;
 }
-.elementContainer {
-  margin-bottom: 3vw;
+.connectFormContainer {
+  margin-bottom: 5vw;
 }

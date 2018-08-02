@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from 'axios';
 import { Notify } from 'zent';
+import "./Update.css";
 
 export default class Update extends Component {
   constructor(props) {
@@ -9,16 +10,16 @@ export default class Update extends Component {
       userdata: {},
       id: '',
       openid: '',
-      formName:'',
+      formName: '',
     };
     this.inputChange = this.inputChange.bind(this);
     this.submit = this.submit.bind(this);
 
   }
 
-  inputChange(index,e) {
+  inputChange(index, e) {
     const that = this;
-    return function(event) {
+    return function (event) {
       let newUserdata = that.state.userdata;
       newUserdata[e] = event.target.value;
       that.setState({
@@ -31,17 +32,17 @@ export default class Update extends Component {
     const id = this.state.id;
     const openid = this.state.openid;
     const formName = this.state.formName;
-    const res = await axios.post('/updateUserdata',{
+    const res = await axios.post('/updateUserdata', {
       userdata: userdata,
       id: id,
       openid: openid,
       formName: formName
     });
     console.log(res);
-    if(res.data.ok === 1) {
+    if (res.data.ok === 1) {
       alert('修改成功');
       window.location.reload();
-    }else{
+    } else {
       Notify.error('修改失败，请重新修改');
     }
   }
@@ -54,7 +55,7 @@ export default class Update extends Component {
       id: id,
       openid: openid
     })
-    const res = await axios.post('/getUserdataByOpenIdAndId',{
+    const res = await axios.post('/getUserdataByOpenIdAndId', {
       id: id,
       openid: openid
     })
@@ -67,18 +68,24 @@ export default class Update extends Component {
   render() {
     const userdata = this.state.userdata;
     const keys = Object.keys(userdata);
-    const item = keys.map((e,index) => {
+    const item = keys.map((e, index) => {
       const value = userdata[e];
-      return<div key={index}>
-        <span>{e}</span>
-        <input defaultValue={value} onChange={this.inputChange(index,e)} type="text"/>
-        <br/>
+      return <div className="valueBox" key={index}>
+        <div className="valueText">{e}</div>
+        {
+          e === 'id' ?
+            <div className="valueContainer">{value}</div> :
+            <input className="valueContainer" defaultValue={value} onChange={this.inputChange(index, e)} type="text" />
+        }
+        <br />
       </div>
     })
     return (
-      <div>
-        {item}
-        <button onClick={this.submit}>保存</button>
+      <div className="newContainer">
+        <div className="itemContainer">
+          {item}
+        </div>
+        <button className="submitBtn" onClick={this.submit}>保存</button>
       </div>
 
 

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import "./ShowOption.css";
+
 class ShowOption extends Component {
 
   constructor(props) {
@@ -89,8 +91,8 @@ class ShowOption extends Component {
     this.state.type = this.props.type;
     // console.log(this.props.type);
     const item = this.state.options.map((option, index) =>
-      <div key={index}>
-        <button onClick={() => this.deleteOption(index)}> - </button>
+      <div className="choiceContainer" key={index}>
+        <div className="deleteBtn" onClick={() => this.deleteOption(index)}> - </div>
         <input onChange={this.changeOption(index)} />
       </div>
     )
@@ -103,23 +105,23 @@ class ShowOption extends Component {
     // console.log({a});
     if (this.state.type == "single_choice") {
       return <div>{a}
-        <button onClick={this.saveElement}>保存字段</button>
+        <div className="submitBtn" onClick={this.saveElement}>保存字段</div>
       </div>
 
     }
     if (this.state.type == "multiple_choice") {
       return <div>{a}
-        <button onClick={this.saveElement}>保存字段</button>
+        <div className="submitBtn" onClick={this.saveElement}>保存字段</div>
       </div>
     }
     if (this.state.type == "drop_down") {
       return <div>{a}
-        <button onClick={this.saveElement}>保存字段</button>
+        <div className="submitBtn" onClick={this.saveElement}>保存字段</div>
       </div>
     }
     return (
       <div>
-        <button onClick={this.saveElement}>保存字段</button>
+        <div className="submitBtn" onClick={this.saveElement}>保存字段</div>
       </div>
     )
   }
