@@ -52,7 +52,6 @@ class ShowOption extends Component {
   }
 
   saveElement() {
-    console.log(this.props.history);
 
     if (this.state.type == 'single_choice' || this.state.type == 'multiple_choice' || this.state.type == 'drop_down') {
       const field = {
