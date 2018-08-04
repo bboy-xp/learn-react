@@ -10,3 +10,9 @@
   letter-spacing: 4px;
   font-size: 4vw;
 }
+.submitBtnContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

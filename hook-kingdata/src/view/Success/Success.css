@@ -1,0 +1,33 @@
+.container {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.successText {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 8vw;
+  line-height: 8vh;
+}
+.successImg {
+  height: 15vw;
+  width: 15vw;
+  margin-top: 5vh;
+}
+.btnStyle {
+  background-color: #ffc400;
+  width: 60vw;
+  height: 6vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3vw;
+  margin: 3vh;
+  letter-spacing: 4px;
+  font-size: 4vw;
+}

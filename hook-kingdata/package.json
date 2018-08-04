@@ -21,6 +21,7 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
+  "homepage": ".",
   "proxy": {
     "/saveForm": {
       "target": "http://127.0.0.1:7001",

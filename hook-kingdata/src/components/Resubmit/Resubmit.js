@@ -19,8 +19,8 @@ export default class Resubmit extends Component {
       <div>
         {
           repeated
-            ? <div>
-              <span>Or</span>
+            ? <div className="submitBtnContainer">
+              <div>或</div>
               <button onClick={this.props.resubmit} className="submitBtn">提交并重新填写表单</button>
             </div>
             :
