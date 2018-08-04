@@ -1,5 +1,5 @@
 'use strict';
-
+const path = require('path');
 module.exports = appInfo => {
   const config = exports = {};
 
@@ -19,6 +19,12 @@ module.exports = appInfo => {
       enable: false,
     },
   }
+  // add static file server
+  config.static = {
+    prefix: '/public/',
+    dir: path.join(appInfo.baseDir, 'app/public'),
+    dynamic: true,
+  };
 
   return config;
 };
