@@ -18,7 +18,7 @@ class HomeController extends Controller {
       describe: res.describe,
       next: res.next,
       id: res.id,
-      repeated: res.repeated,
+      repeated: res.isRepeated,
       fields: res.fields
     })
     formdata.save();

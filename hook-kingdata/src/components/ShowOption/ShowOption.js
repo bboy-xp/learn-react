@@ -95,13 +95,12 @@ class ShowOption extends Component {
         <input onChange={this.changeOption(index)} />
       </div>
     )
-    const a = <div>
-      {item}
-      <div>
-        <span onClick={this.addOption}>新增选项</span>
+    const a = <div className="choiceBox">
+      <div className="choiceFatherContainer">
+        {item}
       </div>
+      <span onClick={this.addOption}>新增选项</span>
     </div>
-    // console.log({a});
     if (this.state.type == "single_choice") {
       return <div>{a}
         <div className="submitBtn" onClick={this.saveElement}>保存字段</div>

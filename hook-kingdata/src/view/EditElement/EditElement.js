@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { Select, Checkbox } from 'zent';
+import { Notify, Select, Checkbox } from 'zent';
+// 引入剪切板功能复制表单的url
+import copy from 'copy-to-clipboard';
 import "./EditElement.css";
 
 class EditElement extends Component {
@@ -12,12 +14,14 @@ class EditElement extends Component {
     this.addElement = this.addElement.bind(this);
     // this.saveForm = this.saveForm.bind(this);
     this.connectForm = this.connectForm.bind(this);
-    this.saveAndViewForm = this.saveAndViewForm.bind(this);
+    this.saveForm = this.saveForm.bind(this);
     this.repeatedChange = this.repeatedChange.bind(this);
+    this.copyUrl = this.copyUrl.bind(this);
     this.state = {
       fields: [],
       allForm: [],
       isRepeated: false,
+      isSaved: false,
     }
   }
 
@@ -29,14 +33,21 @@ class EditElement extends Component {
   //   console.log(id);
   //   this.props.history.push("/formStyle?id="+id);
   // }
-  async saveAndViewForm() {
+  async saveForm() {
     const FormData = this.props.formData;
     const res = await axios.post('/saveForm', FormData);
-    // console.log(res);
-
-    const id = this.props.formData.id;
+    console.log(res);
+    if(res.data == 'ok') {
+      this.setState({
+        isSaved: true
+      });
+      Notify.success('保存成功');
+    }else {
+      Notify.error('保存失败');
+    }
+    // const id = this.props.formData.id;
     // console.log(id);
-    this.props.history.push("/formStyle?id=" + id);
+    // this.props.history.push("/formStyle?id=" + id);
     //临时注释7.18
     // window.location.href = "/";
   }
@@ -57,6 +68,16 @@ class EditElement extends Component {
       isRepeated: !isRepeated
     });
     this.props.pushRepeated(!isRepeated);
+  }
+
+  copyUrl() {
+    const id = this.props.formData.id;
+
+    // 临时方法
+    const formUrl = 'http://localhost:3000/formStyle?id=' + id;
+
+    copy(formUrl);
+    Notify.success('成功复制到剪切板');
   }
 
   render() {
@@ -86,7 +107,12 @@ class EditElement extends Component {
           <div>
             <Checkbox checked={this.state.isRepeated} onChange={this.repeatedChange}>设置成可重复填写的表单</Checkbox>
           </div>
-          <div className="btnStyle" onClick={this.saveAndViewForm}>保存并在线预览表单</div>
+          <div className="btnStyle" onClick={this.saveForm}>保存表单</div>
+          {
+            this.state.isSaved ? 
+            <div className="btnStyle" onClick={this.copyUrl}>复制表单链接</div> :
+            null
+          }
         </div>
       </div>
     )

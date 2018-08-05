@@ -24,3 +24,12 @@
   display: flex;
   margin-bottom: 3vw;
 }
+/* .choiceBox {
+  display: flex;
+  flex-direction: column;
+  
+}
+.choiceFatherContainer {
+  flex-basis: 40%;
+  overflow: scroll
+} */

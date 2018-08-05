@@ -66,7 +66,9 @@ export default class AddElement extends Component {
             <Select data={data} onChange={this.addOption} />
           </div>
         </div>
-        <ShowOption history={this.props.history} name={this.state.name} type={this.state.type} changeProps={changeProps} />
+        <div className="showOptionContainer">
+          <ShowOption history={this.props.history} name={this.state.name} type={this.state.type} changeProps={changeProps} />
+        </div>
 
       </div>
     )
