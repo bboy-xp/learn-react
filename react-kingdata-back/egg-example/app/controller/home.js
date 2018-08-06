@@ -10,15 +10,16 @@ class HomeController extends Controller {
   saveForm() {
     const ctx = this.ctx;
     const res = ctx.request.body;
-    console.log(res);
+    // console.log(res);
     const Formdata = ctx.model.Formdata;
+    const isRepeated = !!res.isRepeated;
 
     const formdata = new Formdata({
       title: res.title,
       describe: res.describe,
       next: res.next,
       id: res.id,
-      repeated: res.isRepeated,
+      repeated: isRepeated,
       fields: res.fields
     })
     formdata.save();
@@ -40,7 +41,7 @@ class HomeController extends Controller {
   async getForm() {
     const ctx = this.ctx;
     const id = ctx.request.body.id;
-    console.log(id);
+    // console.log(id);
     const Formdata = ctx.model.Formdata;
     const targetForm = await Formdata.find({ id: id });
 
@@ -58,7 +59,7 @@ class HomeController extends Controller {
   async getUserdataByOpenId() {
     const ctx = this.ctx;
     const openid = ctx.request.body.openid;
-    console.log(openid);
+    // console.log(openid);
     const Userdata = ctx.model.Userdata;
     const targetUserdata = await Userdata.find({
       openid: openid
@@ -69,7 +70,7 @@ class HomeController extends Controller {
     const ctx = this.ctx;
     const openid = ctx.request.body.openid;
     const id = ctx.request.body.id;
-    console.log(openid);
+    // console.log(openid);
     const Userdata = ctx.model.Userdata;
     const targetUserdata = await Userdata.find({
       openid: openid,
@@ -120,6 +121,33 @@ class HomeController extends Controller {
     const openid = codeData.data.openid;
     console.log(openid);
     ctx.body = openid;
+  }
+  async test() {
+    const ctx = this.ctx;
+    const Formdata = ctx.model.Formdata;
+    
+    ctx.body = 'ok';
+    // ctx.body = '临时修改数据库数据用';
+  }
+  async getTimeSteps() {
+    const ctx = this.ctx;
+    let id = ctx.request.body.id;
+    let timeStepsArr = [];
+    // console.log(id);
+    const Formdata = ctx.model.Formdata;
+    const getStepFunction = async function(idStr) {
+      const getStepRes = await Formdata.find({'id': idStr});
+      const getStep = getStepRes[0];
+      timeStepsArr.push(getStep);
+      const nextStr = getStep.next;
+      if(!!nextStr) {
+        // console.log(getStep.next);
+        await getStepFunction(nextStr);
+      }
+    };
+    await getStepFunction(id);
+    // console.log(timeStepsArr);
+    ctx.body = timeStepsArr;
   }
 }
 

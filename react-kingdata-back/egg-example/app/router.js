@@ -16,4 +16,6 @@ module.exports = app => {
   router.post('/getUserdata',controller.home.getUserdata);
   router.post('/getUserdataByOpenId',controller.home.getUserdataByOpenId);
   router.post('/getUserdataByOpenIdAndId',controller.home.getUserdataByOpenIdAndId);
+  router.get('/test',controller.home.test);
+  router.post('/getTimeSteps',controller.home.getTimeSteps);
 };

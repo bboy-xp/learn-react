@@ -16,6 +16,8 @@ class Home extends Component {
     this.createForm = this.createForm.bind(this);
   }
   async componentDidMount() {
+    // const testRes = await axios.get("/test");
+    // console.log(testRes.data);
     const res = await axios.get("/getAllForm");
     // console.log(res);
     this.setState({

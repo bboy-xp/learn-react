@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import { Radio, Checkbox, Select } from 'zent';
+import { Steps, Collapse } from 'element-react';
 import './FormStyle.css';
 import axios from 'axios';
 import Resubmit from '../../components/Resubmit/Resubmit';
+
 
 const CheckboxGroup = Checkbox.Group;
 
@@ -24,6 +26,8 @@ export default class FormStyle extends Component {
       formName: '',
       repeated: false,
       title: '',
+      timeStepArr: [],
+      repeatedFormArr: [],
     }
     this.checkboxChange = this.checkboxChange.bind(this);
     this.radioChange = this.radioChange.bind(this);
@@ -34,6 +38,7 @@ export default class FormStyle extends Component {
     this.phoneChange = this.phoneChange.bind(this);
     this.selectChange = this.selectChange.bind(this);
     this.resubmit = this.resubmit.bind(this);
+    this.addRepeatedFormArr = this.addRepeatedFormArr.bind(this);
   }
 
   textChange(field) {
@@ -191,7 +196,16 @@ export default class FormStyle extends Component {
     const getFormRes = await axios.post('/getForm', {
       id: id,
     });
-    console.log(getFormRes.data);
+    console.log(getFormRes.data[0].fields);
+
+    let repeatedFormArr = [];
+    repeatedFormArr.push(getFormRes.data[0].fields)
+
+    //通过id获取到步骤条
+    const timestepsRes = await axios.post('/getTimeSteps', {
+      id: id
+    });
+    console.log(timestepsRes.data);
 
     //将form的fields传入state中
     this.setState({
@@ -202,7 +216,10 @@ export default class FormStyle extends Component {
         id: id
       },
       formName: getFormRes.data[0].title,
-      repeated: getFormRes.data[0].repeated
+      repeated: getFormRes.data[0].repeated,
+      timeStepArr: timestepsRes.data,
+      //将重复表单的第一项填入数组
+      repeatedFormArr: repeatedFormArr
     });
 
 
@@ -210,10 +227,20 @@ export default class FormStyle extends Component {
     // const openid = axios.get('https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx21174deccc6b6c4b&redirect_uri=http%3a%2f%2fhook.feit.me%2foauth&response_type=code&scope=snsapi_base&state=123#wechat_redirect');
     // console.log(openid);
   }
+  addRepeatedFormArr() {
+    const field = this.state.fields;
+    const repeatedFormArr = this.state.repeatedFormArr;
+    repeatedFormArr.push(field);
+    console.log(repeatedFormArr);
+    this.setState({
+      repeatedFormArr: repeatedFormArr
+    })
+  }
 
 
   render() {
     const fields = this.state.fields;
+    //表单主体 list
     const list = fields.map((field, index) => {
       // <div key={index}>
       //   <span>{field.name}</span>
@@ -277,15 +304,41 @@ export default class FormStyle extends Component {
 
     const repeated = this.state.repeated;
 
+    const steps = this.state.timeStepArr.map((step, index) =>
+      <Steps.Step key={index} title={step.title} icon="document"></Steps.Step>
+    )
+
+    const repeatedItem = this.state.repeatedFormArr.map((form, index) =>
+      <Collapse.Item key={index} title={"表单"+(index+1)} name={String(index)}>
+        {list}
+      </Collapse.Item>
+    )
+
 
     return (
       <div className="container">
         <div className="title">{this.state.title}</div>
         <div className="listContainer">
-          {list}
+          {/* 在这里判断是否为重复表单，渲染折叠面板 */}
+          {
+            !!repeated
+              ? <div>
+                <Collapse>
+                  {repeatedItem}
+                </Collapse>
+              </div>
+              :
+              <div>{list}</div>
+
+          }
+          <button onClick={this.addRepeatedFormArr} className="submitBtn">添加一项</button>
+
+          <Steps space={100} active={1}>
+            {steps}
+          </Steps>
         </div>
         <button onClick={this.submit} className="submitBtn">提交</button>
-        <Resubmit resubmit={this.resubmit} repeated={repeated} />
+        {/* <Resubmit resubmit={this.resubmit} repeated={repeated} /> */}
       </div>
     )
   }
