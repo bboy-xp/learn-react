@@ -20,7 +20,7 @@ export default class FormStyle extends Component {
       fields: [],
       checkedList: [],
       next: "",
-      userData: {},
+      userData: [],
       nextUrl: '',
       id: '',
       formName: '',
@@ -43,73 +43,193 @@ export default class FormStyle extends Component {
     // this.collapseChange = this.collapseChange.bind(this);
   }
 
-  textChange(field) {
+  textChange(field, index1) {
     const that = this;
+    const isRepeated = this.state.repeated;
     return function (event) {
-      const newUserData = Object.assign(that.state.userData, { [field.name]: event.target.value });
-      that.setState({
-        userData: newUserData
-      })
+      if(isRepeated) {
+        let userDataArr = that.state.userData;
+        const userData = userDataArr[index1];
+        const newUserData = Object.assign(userData, { [field.name]: event.target.value });
+        userDataArr[index1] = newUserData;
+        that.setState({
+          userData: userDataArr
+        })
+      }else {
+        let userDataArr = that.state.userData;
+        const userData = userDataArr[0];
+        const newUserData = Object.assign(userData, { [field.name]: event.target.value });
+        userDataArr[0] = newUserData;
+        that.setState({
+          userData: userDataArr
+        })
+      }
     }
   }
-  nparagraphTextChange(field) {
+  nparagraphTextChange(field, index1) {
     const that = this;
+    const isRepeated = this.state.repeated;
     return function (event) {
-      const newUserData = Object.assign(that.state.userData, { [field.name]: event.target.value });
-      that.setState({
-        userData: newUserData
-      })
+      if(isRepeated) {
+        let userDataArr = that.state.userData;
+        const userData = userDataArr[index1];
+        const newUserData = Object.assign(userData, { [field.name]: event.target.value });
+        userDataArr[index1] = newUserData;
+        that.setState({
+          userData: userDataArr
+        })
+      }else {
+        let userDataArr = that.state.userData;
+        const userData = userDataArr[0];
+        const newUserData = Object.assign(userData, { [field.name]: event.target.value });
+        userDataArr[0] = newUserData;
+        that.setState({
+          userData: userDataArr
+        })
+      }
     }
   }
-  numChange(field) {
+  numChange(field, index1) {
     const that = this;
+    const isRepeated = this.state.repeated;
     return function (event) {
-      const newUserData = Object.assign(that.state.userData, { [field.name]: event.target.value });
-      that.setState({
-        userData: newUserData
-      })
+      if(isRepeated) {
+        let userDataArr = that.state.userData;
+        const userData = userDataArr[index1];
+        const newUserData = Object.assign(userData, { [field.name]: event.target.value });
+        userDataArr[index1] = newUserData;
+        that.setState({
+          userData: userDataArr
+        })
+      }else {
+        let userDataArr = that.state.userData;
+        const userData = userDataArr[0];
+        const newUserData = Object.assign(userData, { [field.name]: event.target.value });
+        userDataArr[0] = newUserData;
+        that.setState({
+          userData: userDataArr
+        })
+      }
     }
   }
-  phoneChange(field) {
+  phoneChange(field, index1) {
     const that = this;
+    const isRepeated = this.state.repeated;
     return function (event) {
-      const newUserData = Object.assign(that.state.userData, { [field.name]: event.target.value });
-      that.setState({
-        userData: newUserData
-      })
+      if(isRepeated) {
+        let userDataArr = that.state.userData;
+        const userData = userDataArr[index1];
+        const newUserData = Object.assign(userData, { [field.name]: event.target.value });
+        userDataArr[index1] = newUserData;
+        that.setState({
+          userData: userDataArr
+        })
+      }else {
+        let userDataArr = that.state.userData;
+        const userData = userDataArr[0];
+        const newUserData = Object.assign(userData, { [field.name]: event.target.value });
+        userDataArr[0] = newUserData;
+        that.setState({
+          userData: userDataArr
+        })
+      }
     }
   }
 
-  checkboxChange(index, field) {
+  checkboxChange(index, field, index1) {
     const that = this;
+    const isRepeated = this.state.repeated;
     return function (checkedList) {
-      const newUserData = Object.assign(that.state.userData, { [field.name]: checkedList });
-      that.setState({
-        ['checkedList' + index]: checkedList,
-        userData: newUserData
-      })
-      // console.log(field.name);
+      if (isRepeated) {
+        let userDataArr = that.state.userData;
+        const userData = userDataArr[index1];
+        const newUserData = Object.assign(userData, { [field.name]: checkedList });
+        userDataArr[index1] = newUserData;
+        that.setState({
+          ['checkedList' + index]: checkedList,
+          userData: userDataArr
+        })
+      } else {
+        let userDataArr = that.state.userData;
+        console.log(userDataArr);
+        const userData = userDataArr[0];
+        const newUserData = Object.assign(userData, { [field.name]: checkedList });
+        userDataArr[0] = newUserData;
+        that.setState({
+          ['checkedList' + index]: checkedList,
+          userData: userDataArr
+        })
+      }
+
     }
+    // return function (checkedList) {
+    //   const newUserData = Object.assign(that.state.userData, { [field.name]: checkedList });
+    //   that.setState({
+    //     ['checkedList' + index]: checkedList,
+    //     userData: newUserData
+    //   })
+    //   // console.log(field.name);
+    // }
     // console.log(this.state.checkedList);
   }
-  radioChange(index, field) {
+  radioChange(index, field, index1) {
     // console.log(event.target.value);
     const that = this;
+    const isRepeated = this.state.repeated;
     return function (event) {
-      const newUserData = Object.assign(that.state.userData, { [field.name]: event.target.value });
-      that.setState({
-        ['radioValue' + index]: event.target.value,
-        userData: newUserData
-      })
+      if (isRepeated) {
+        let userDataArr = that.state.userData;
+        const userData = userDataArr[index1];
+        const newUserData = Object.assign(userData, { [field.name]: event.target.value });
+        userDataArr[index1] = newUserData;
+        that.setState({
+          ['radioValue' + index]: event.target.value,
+          userData: userDataArr
+        })
+      } else {
+        let userDataArr = that.state.userData;
+        console.log(userDataArr);
+        const userData = userDataArr[0];
+        const newUserData = Object.assign(userData, { [field.name]: event.target.value });
+        userDataArr[0] = newUserData;
+        that.setState({
+          ['radioValue' + index]: event.target.value,
+          userData: userDataArr
+        })
+      }
+
     }
+    // return function (event) {
+    //   const newUserData = Object.assign(that.state.userData, { [field.name]: event.target.value });
+    //   that.setState({
+    //     ['radioValue' + index]: event.target.value,
+    //     userData: newUserData
+    //   })
+    // }
   }
-  selectChange(index, field) {
+  selectChange(index, field, index1) {
     const that = this;
+    const isRepeated = this.state.repeated;
     return function (event) {
-      const newUserData = Object.assign(that.state.userData, { [field.name]: event.target.value });
-      that.setState({
-        userData: newUserData
-      })
+      if (isRepeated) {
+        let userDataArr = that.state.userData;
+        const userData = userDataArr[index1];
+        const newUserData = Object.assign(userData, { [field.name]: event.target.value });
+        userDataArr[index1] = newUserData;
+        that.setState({
+          userData: userDataArr
+        })
+      } else {
+        let userDataArr = that.state.userData;
+        console.log(userDataArr);
+        const userData = userDataArr[0];
+        const newUserData = Object.assign(userData, { [field.name]: event.target.value });
+        userDataArr[0] = newUserData;
+        that.setState({
+          userData: userDataArr
+        })
+      }
+
     }
   }
   async submit() {
@@ -120,23 +240,23 @@ export default class FormStyle extends Component {
     const nextUrl = this.state.nextUrl;
     const isRepeated = this.state.repeated;
     console.log(userData);
-    // const res = await axios.post('/postUserData', {
-    //   userData: userData,
-    //   openid: openid,
-    //   id: id,
-    //   formName: formName,
-    //   isRepeated: isRepeated
-    // });
-    // console.log(res);
-    // if (res.data === "ok") {
-    //   if (this.state.next) {
-    //     window.location.href = "/formStyle?id=" + this.state.next + nextUrl;
-    //   } else {
-    //     window.location.href = "/success";
-    //   }
-    // } else {
-    //   alert('服务器故障，请重新填写表单，谢谢');
-    // }
+    const res = await axios.post('/postUserData', {
+      userData: userData,
+      openid: openid,
+      id: id,
+      formName: formName,
+      isRepeated: isRepeated
+    });
+    console.log(res);
+    if (res.data === "ok") {
+      if (this.state.next) {
+        window.location.href = "/formStyle?id=" + this.state.next + nextUrl;
+      } else {
+        window.location.href = "/success";
+      }
+    } else {
+      alert('服务器故障，请重新填写表单，谢谢');
+    }
   }
   // async resubmit() {
   //   const openid = localStorage.getItem('openid');
@@ -201,7 +321,7 @@ export default class FormStyle extends Component {
     const getFormRes = await axios.post('/getForm', {
       id: id,
     });
-    console.log(getFormRes.data[0].fields);
+    console.log(getFormRes.data[0]);
 
     let repeatedFormArr = [];
     repeatedFormArr.push(getFormRes.data[0].fields)
@@ -217,11 +337,12 @@ export default class FormStyle extends Component {
       fields: getFormRes.data[0].fields,
       title: getFormRes.data[0].title,
       next: getFormRes.data[0].next,
-      userData: {
-        id: id
-      },
+      //临时注释  
+
+      userData: [{id: id}],
       formName: getFormRes.data[0].title,
-      repeated: getFormRes.data[0].repeated,
+      //防止repeated不存在出现bug
+      repeated: !!getFormRes.data[0].repeated,
       timeStepArr: timestepsRes.data,
       //将重复表单的第一项填入数组
       repeatedFormArr: repeatedFormArr
@@ -233,12 +354,16 @@ export default class FormStyle extends Component {
     // console.log(openid);
   }
   addRepeatedFormArr() {
+    let userDataArr = this.state.userData;
+    const id = this.state.id;
+    userDataArr.push({id: id})
     const field = this.state.fields;
     const repeatedFormArr = this.state.repeatedFormArr;
     repeatedFormArr.push(field);
     console.log(repeatedFormArr);
     this.setState({
-      repeatedFormArr: repeatedFormArr
+      repeatedFormArr: repeatedFormArr,
+      userData: userDataArr
     })
   }
 
@@ -252,7 +377,7 @@ export default class FormStyle extends Component {
   render() {
     const fields = this.state.fields;
     //表单主体 list
-    const list = fields.map((field, index) => {
+    const item = fields.map((field, index) => {
       // <div key={index}>
       //   <span>{field.name}</span>
       // </div>
@@ -319,9 +444,67 @@ export default class FormStyle extends Component {
       <Steps.Step key={index} title={step.title} icon="document"></Steps.Step>
     )
 
-    const repeatedItem = this.state.repeatedFormArr.map((form, index) =>
-      <Collapse.Panel  key={index} title={"表单"+(index+1)}>
-        {list}
+    const repeatedItem = this.state.repeatedFormArr.map((form, index1) =>
+      <Collapse.Panel key={index1} title={"表单" + (index1 + 1)}>
+        {
+          fields.map((field, index) => {
+            if (field.type === "number") {
+              return <div className="elementContainer" key={index}>
+                <div className="inputQuestion">{index + 1} · {field.name}</div>
+                <input onChange={this.numChange(field, index1)} className="inputBox" />
+              </div>
+            }
+            if (field.type === "single_line_text") {
+              return <div className="elementContainer" key={index}>
+                <div className="inputQuestion">{index + 1} · {field.name}</div>
+                <input onChange={this.textChange(field, index1)} className="inputBox" />
+              </div>
+            }
+            if (field.type === "paragraph_text") {
+              return <div className="elementContainer" key={index}>
+                <div className="inputQuestion">{index + 1} · {field.name}</div>
+                <textarea onChange={this.nparagraphTextChange(field, index1)} className="textareaStyle" auto-focus="true" maxLength="400" cols="30" rows="10"></textarea>
+              </div>
+            }
+            if (field.type === "phone") {
+              return <div className="elementContainer" key={index}>
+                <div className="inputQuestion">{index + 1} · {field.name}</div>
+                <input onChange={this.phoneChange(field, index1)} className="inputBox" />
+              </div>
+            }
+            if (field.type === "multiple_choice") {
+              return <div className="elementContainer" key={index}>
+                <div className="inputQuestion">{index + 1} · {field.name}</div>
+                <CheckboxGroup value={this.state['checkedList' + index]} onChange={this.checkboxChange(index, field, index1)} >
+                  {field.choice.map((item, index) =>
+                    <div className="choiceStyle" key={index}>
+                      <Checkbox value={item.value}>{item.value}</Checkbox>
+                    </div>
+                  )}
+                </CheckboxGroup>
+              </div>
+            }
+            if (field.type === "single_choice") {
+              return <div className="elementContainer" key={index}>
+                <div className="inputQuestion">{index + 1} · {field.name}</div>
+                <RadioGroup value={this.state['radioValue' + index]} onChange={this.radioChange(index, field, index1)}>
+                  {field.choice.map((item, index) =>
+                    <div className="choiceStyle" key={index}>
+                      <Radio value={item.value}>{item.value}</Radio>
+                    </div>
+                  )}
+                </RadioGroup>
+              </div>
+            }
+            if (field.type === "drop_down") {
+              return <div className="elementContainer" key={index}>
+                <div className="inputQuestion">{index + 1} · {field.name}</div>
+                <Select data={field.choice} onChange={this.selectChange(index, field, index1)} optionText="value" optionValue="value"></Select>
+              </div>
+            }
+          }
+          )
+        }
       </Collapse.Panel>
     )
 
@@ -339,10 +522,18 @@ export default class FormStyle extends Component {
                 </Collapse>
               </div>
               :
-              <div>{list}</div>
+              <div>{item}</div>
 
           }
-          <button onClick={this.addRepeatedFormArr} className="submitBtn">添加一项</button>
+          {
+            !!repeated
+              ? <div>
+                <button onClick={this.addRepeatedFormArr} className="submitBtn">添加一项</button>
+              </div>
+              :
+              null
+          }
+
 
           <Steps space={100} active={1}>
             {steps}
