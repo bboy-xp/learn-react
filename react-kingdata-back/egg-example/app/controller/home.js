@@ -81,14 +81,16 @@ class HomeController extends Controller {
   postUserData() {
     const ctx = this.ctx;
     console.log(ctx.request.body);
+    const data = ctx.request.body;
     const Userdata = ctx.model.Userdata;
-    // const userdata = new Userdata({
-    //   userdata: ctx.request.body.userData,
-    //   openid: ctx.request.body.openid,
-    //   id: ctx.request.body.id,
-    //   formName: ctx.request.body.formName
-    // })
-    // userdata.save();
+    const userdata = new Userdata({
+      userdata: data.userData,
+      openid: data.openid,
+      id: data.id,
+      formName: data.formName,
+      isRepeated: data.isRepeated
+    })
+    userdata.save();
     ctx.body = 'ok';
   }
   async updateUserdata() {

@@ -5,6 +5,7 @@ module.exports = app => {
     openid: { type: String },
     id: { type: String },
     formName: { type: String },
+    isRepeated: { type: Boolean }
   }, {
       timestamps: true,
     });
