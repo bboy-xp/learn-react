@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-import { Radio, Checkbox, Select } from 'zent';
-import { Steps, Collapse } from 'element-react';
+import { Radio, Checkbox, Select, Collapse } from 'zent';
+import { Steps } from 'element-react';
 import './FormStyle.css';
 import axios from 'axios';
-import Resubmit from '../../components/Resubmit/Resubmit';
+// import Resubmit from '../../components/Resubmit/Resubmit';
 
 
 const CheckboxGroup = Checkbox.Group;
@@ -28,6 +28,7 @@ export default class FormStyle extends Component {
       title: '',
       timeStepArr: [],
       repeatedFormArr: [],
+      activeKey: '0'
     }
     this.checkboxChange = this.checkboxChange.bind(this);
     this.radioChange = this.radioChange.bind(this);
@@ -37,8 +38,9 @@ export default class FormStyle extends Component {
     this.nparagraphTextChange = this.nparagraphTextChange.bind(this);
     this.phoneChange = this.phoneChange.bind(this);
     this.selectChange = this.selectChange.bind(this);
-    this.resubmit = this.resubmit.bind(this);
+    // this.resubmit = this.resubmit.bind(this);
     this.addRepeatedFormArr = this.addRepeatedFormArr.bind(this);
+    // this.collapseChange = this.collapseChange.bind(this);
   }
 
   textChange(field) {
@@ -116,41 +118,44 @@ export default class FormStyle extends Component {
     const formName = this.state.formName;
     const userData = this.state.userData;
     const nextUrl = this.state.nextUrl;
-    const res = await axios.post('/postUserData', {
-      userData: userData,
-      openid: openid,
-      id: id,
-      formName: formName
-    });
-    console.log(res);
-    if (res.data === "ok") {
-      if (this.state.next) {
-        window.location.href = "/formStyle?id=" + this.state.next + nextUrl;
-      } else {
-        window.location.href = "/success";
-      }
-    } else {
-      alert('服务器故障，请重新填写表单，谢谢');
-    }
+    const isRepeated = this.state.repeated;
+    console.log(userData);
+    // const res = await axios.post('/postUserData', {
+    //   userData: userData,
+    //   openid: openid,
+    //   id: id,
+    //   formName: formName,
+    //   isRepeated: isRepeated
+    // });
+    // console.log(res);
+    // if (res.data === "ok") {
+    //   if (this.state.next) {
+    //     window.location.href = "/formStyle?id=" + this.state.next + nextUrl;
+    //   } else {
+    //     window.location.href = "/success";
+    //   }
+    // } else {
+    //   alert('服务器故障，请重新填写表单，谢谢');
+    // }
   }
-  async resubmit() {
-    const openid = localStorage.getItem('openid');
-    const id = this.state.id;
-    const formName = this.state.formName;
-    const userData = this.state.userData;
-    const res = await axios.post('/postUserData', {
-      userData: userData,
-      openid: openid,
-      id: id,
-      formName: formName
-    });
-    console.log(res);
-    if (res.data === "ok") {
-      window.location.reload();
-    } else {
-      alert('服务器故障，请重新填写表单，谢谢');
-    }
-  }
+  // async resubmit() {
+  //   const openid = localStorage.getItem('openid');
+  //   const id = this.state.id;
+  //   const formName = this.state.formName;
+  //   const userData = this.state.userData;
+  //   const res = await axios.post('/postUserData', {
+  //     userData: userData,
+  //     openid: openid,
+  //     id: id,
+  //     formName: formName
+  //   });
+  //   console.log(res);
+  //   if (res.data === "ok") {
+  //     window.location.reload();
+  //   } else {
+  //     alert('服务器故障，请重新填写表单，谢谢');
+  //   }
+  // }
   async componentDidMount() {
     //获取url中的参数
     let url = window.location.href;
@@ -237,6 +242,12 @@ export default class FormStyle extends Component {
     })
   }
 
+  collapseChange(activeKey) {
+    this.setState({
+      activeKey: activeKey
+    });
+  }
+
 
   render() {
     const fields = this.state.fields;
@@ -309,9 +320,9 @@ export default class FormStyle extends Component {
     )
 
     const repeatedItem = this.state.repeatedFormArr.map((form, index) =>
-      <Collapse.Item key={index} title={"表单"+(index+1)} name={String(index)}>
+      <Collapse.Panel  key={index} title={"表单"+(index+1)}>
         {list}
-      </Collapse.Item>
+      </Collapse.Panel>
     )
 
 
@@ -323,7 +334,7 @@ export default class FormStyle extends Component {
           {
             !!repeated
               ? <div>
-                <Collapse>
+                <Collapse activeKey={this.state.activeKey} onChange={this.collapseChange.bind(this)} accordion>
                   {repeatedItem}
                 </Collapse>
               </div>
