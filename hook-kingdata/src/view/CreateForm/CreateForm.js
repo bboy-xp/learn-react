@@ -62,7 +62,7 @@ class CreateForm extends Component {
 
 }
 
-//将state.fields绑定到props的timeResStrArray
+//将state.fields绑定到props的formData
 const mapStateToProps = (state = {}) => {
   console.log(state);
   return {

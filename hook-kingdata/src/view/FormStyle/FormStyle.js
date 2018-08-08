@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
+import { connect } from 'react-redux';
 import { Radio, Checkbox, Select, Collapse } from 'zent';
+import { Link } from "react-router-dom";
 import { Steps } from 'element-react';
 import './FormStyle.css';
 import axios from 'axios';
@@ -28,7 +29,8 @@ export default class FormStyle extends Component {
       title: '',
       timeStepArr: [],
       repeatedFormArr: [],
-      activeKey: '0'
+      activeKey: '1',
+      stepKey: 0
     }
     this.checkboxChange = this.checkboxChange.bind(this);
     this.radioChange = this.radioChange.bind(this);
@@ -40,6 +42,7 @@ export default class FormStyle extends Component {
     this.selectChange = this.selectChange.bind(this);
     // this.resubmit = this.resubmit.bind(this);
     this.addRepeatedFormArr = this.addRepeatedFormArr.bind(this);
+    this.gotoSelectForm = this.gotoSelectForm.bind(this);
     // this.collapseChange = this.collapseChange.bind(this);
   }
 
@@ -59,6 +62,8 @@ export default class FormStyle extends Component {
         let userDataArr = that.state.userData;
         const userData = userDataArr[0];
         const newUserData = Object.assign(userData, { [field.name]: event.target.value });
+        // userData[field.name] = event.target.value;
+        // console.log(userData);
         userDataArr[0] = newUserData;
         that.setState({
           userData: userDataArr
@@ -298,26 +303,32 @@ export default class FormStyle extends Component {
     // console.log(url);
     //判断是否url带参数code，如果没带跳转授权页面使url带参数code
 
+
+    // 微信授权
     //临时注释（frp不好使本地测试）
-    // if (param[1]) {
-    //   code = param[1].split('=')[1];;
-    // } else {
-    //   window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx21174deccc6b6c4b&redirect_uri=${url}&response_type=code&scope=snsapi_base&state=123#wechat_redirect`;
-    // }
+    if (param[1]) {
+      code = param[1].split('=')[1];;
+    } else {
+      window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx21174deccc6b6c4b&redirect_uri=${url}&response_type=code&scope=snsapi_base&state=123#wechat_redirect`;
+    }
 
-    // //判断localStorage中是否有openid，如果没有将code发送到后端的/oauth路由上获取openid，并存入localStorage
-    // if (!localStorage.getItem('openid')) {
-    //   const openid = await axios.post('/oauth', {
-    //     code: code
-    //   });
-    //   // console.log(openid.data);
-    //   localStorage.openid = openid.data;
-    // } else {
+    //判断localStorage中是否有openid，如果没有将code发送到后端的/oauth路由上获取openid，并存入localStorage
+    if (!localStorage.getItem('openid')) {
+      const openid = await axios.post('/oauth', {
+        code: code
+      });
+      // console.log(openid.data);
+      localStorage.openid = openid.data;
+    } else {
 
-    //   console.log('localStorage中已存入openid');
-    // }
-
+      console.log('localStorage中已存入openid');
+    }
     // console.log(code,id);
+
+
+
+
+
     const getFormRes = await axios.post('/getForm', {
       id: id,
     });
@@ -330,8 +341,31 @@ export default class FormStyle extends Component {
     const timestepsRes = await axios.post('/getTimeSteps', {
       id: id
     });
-    console.log(timestepsRes.data);
 
+    // 将步骤条的数组存入localStorage
+    const formStep = timestepsRes.data;
+    const existFormStep = localStorage.getItem('existFormStep');
+    if(!!existFormStep) {
+      console.log('已存在existFormStep');
+    }else {
+      const existBoolean = true;
+      localStorage.setItem('existFormStep',existBoolean);
+      localStorage.setItem('formStep', JSON.stringify(formStep));
+
+    }
+    const timeStepArr = JSON.parse(localStorage.getItem('formStep'));
+    const stepKey = Number(timeStepArr.length-timestepsRes.data.length);
+    console.log(stepKey);
+
+    // 初始化userData
+    console.log(repeatedFormArr);
+    const iniUserdata = {};
+    repeatedFormArr[0].map((formElement, index) => {
+      iniUserdata[formElement.name] = '';
+      // console.log(index);
+    })
+    iniUserdata[id] = id;
+    console.log(iniUserdata);
     //将form的fields传入state中
     this.setState({
       fields: getFormRes.data[0].fields,
@@ -343,9 +377,10 @@ export default class FormStyle extends Component {
       formName: getFormRes.data[0].title,
       //防止repeated不存在出现bug
       repeated: !!getFormRes.data[0].repeated,
-      timeStepArr: timestepsRes.data,
+      timeStepArr: timeStepArr,
       //将重复表单的第一项填入数组
-      repeatedFormArr: repeatedFormArr
+      repeatedFormArr: repeatedFormArr,
+      stepKey: stepKey
     });
 
 
@@ -371,6 +406,10 @@ export default class FormStyle extends Component {
     this.setState({
       activeKey: activeKey
     });
+  }
+
+  gotoSelectForm() {
+    console.log(111);
   }
 
 
@@ -441,7 +480,7 @@ export default class FormStyle extends Component {
     const repeated = this.state.repeated;
 
     const steps = this.state.timeStepArr.map((step, index) =>
-      <Steps.Step key={index} title={step.title} icon="document"></Steps.Step>
+      <Steps.Step onClick={this.state.gotoSelectForm} key={index} title={step.title} icon="document"></Steps.Step>
     )
 
     const repeatedItem = this.state.repeatedFormArr.map((form, index1) =>
@@ -535,7 +574,7 @@ export default class FormStyle extends Component {
           }
 
 
-          <Steps space={100} active={1}>
+          <Steps space={100} active={this.state.stepKey}>
             {steps}
           </Steps>
         </div>
@@ -546,3 +585,5 @@ export default class FormStyle extends Component {
   }
 
 }
+
+
