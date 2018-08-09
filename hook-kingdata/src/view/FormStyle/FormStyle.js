@@ -29,7 +29,7 @@ export default class FormStyle extends Component {
       title: '',
       timeStepArr: [],
       repeatedFormArr: [],
-      activeKey: '1',
+      activeKey: '0',
       stepKey: 0
     }
     this.checkboxChange = this.checkboxChange.bind(this);
@@ -408,8 +408,13 @@ export default class FormStyle extends Component {
     });
   }
 
-  gotoSelectForm() {
-    console.log(111);
+  gotoSelectForm(id) {
+    const that = this;
+    return function() {
+      console.log(id);
+      const nextUrl = that.state.nextUrl;
+      window.location.href = "/formStyle?id=" + id + nextUrl;
+    }
   }
 
 
@@ -480,7 +485,7 @@ export default class FormStyle extends Component {
     const repeated = this.state.repeated;
 
     const steps = this.state.timeStepArr.map((step, index) =>
-      <Steps.Step onClick={this.state.gotoSelectForm} key={index} title={step.title} icon="document"></Steps.Step>
+      <Steps.Step key={index} description={<div className="stepContainer" onClick={this.gotoSelectForm(step.id)}>{step.title}</div>} icon="document"></Steps.Step>
     )
 
     const repeatedItem = this.state.repeatedFormArr.map((form, index1) =>
@@ -572,7 +577,6 @@ export default class FormStyle extends Component {
               :
               null
           }
-
 
           <Steps space={100} active={this.state.stepKey}>
             {steps}

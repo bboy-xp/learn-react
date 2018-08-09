@@ -36,3 +36,13 @@
 .elementContainer {
   margin-bottom: 3vw;
 }
+.stepContainer {
+  height: 10vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  /* margin-top: -5vh; */
+  /* line-height: 20vh; */
+  position: relative;
+  top: -4vh;
+}
