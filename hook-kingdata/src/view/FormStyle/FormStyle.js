@@ -156,7 +156,7 @@ export default class FormStyle extends Component {
         })
       } else {
         let userDataArr = that.state.userData;
-        console.log(userDataArr);
+        // console.log(userDataArr);
         const userData = userDataArr[0];
         const newUserData = Object.assign(userData, { [field.name]: checkedList });
         userDataArr[0] = newUserData;
@@ -193,7 +193,7 @@ export default class FormStyle extends Component {
         })
       } else {
         let userDataArr = that.state.userData;
-        console.log(userDataArr);
+        // console.log(userDataArr);
         const userData = userDataArr[0];
         const newUserData = Object.assign(userData, { [field.name]: event.target.value });
         userDataArr[0] = newUserData;
@@ -226,7 +226,7 @@ export default class FormStyle extends Component {
         })
       } else {
         let userDataArr = that.state.userData;
-        console.log(userDataArr);
+        // console.log(userDataArr);
         const userData = userDataArr[0];
         const newUserData = Object.assign(userData, { [field.name]: event.target.value });
         userDataArr[0] = newUserData;
@@ -244,7 +244,7 @@ export default class FormStyle extends Component {
     const userData = this.state.userData;
     const nextUrl = this.state.nextUrl;
     const isRepeated = this.state.repeated;
-    console.log(userData);
+    // console.log(userData);
     const res = await axios.post('/postUserData', {
       userData: userData,
       openid: openid,
@@ -332,7 +332,7 @@ export default class FormStyle extends Component {
     const getFormRes = await axios.post('/getForm', {
       id: id,
     });
-    console.log(getFormRes.data[0]);
+    // console.log(getFormRes.data[0]);
 
     let repeatedFormArr = [];
     repeatedFormArr.push(getFormRes.data[0].fields)
@@ -355,17 +355,17 @@ export default class FormStyle extends Component {
     }
     const timeStepArr = JSON.parse(localStorage.getItem('formStep'));
     const stepKey = Number(timeStepArr.length-timestepsRes.data.length);
-    console.log(stepKey);
+    // console.log(stepKey);
 
     // 初始化userData
-    console.log(repeatedFormArr);
+    // console.log(repeatedFormArr);
     const iniUserdata = {};
     repeatedFormArr[0].map((formElement, index) => {
       iniUserdata[formElement.name] = '';
       // console.log(index);
     })
     iniUserdata[id] = id;
-    console.log(iniUserdata);
+    // console.log(iniUserdata);
     //将form的fields传入state中
     this.setState({
       fields: getFormRes.data[0].fields,
@@ -395,7 +395,7 @@ export default class FormStyle extends Component {
     const field = this.state.fields;
     const repeatedFormArr = this.state.repeatedFormArr;
     repeatedFormArr.push(field);
-    console.log(repeatedFormArr);
+    // console.log(repeatedFormArr);
     this.setState({
       repeatedFormArr: repeatedFormArr,
       userData: userDataArr
@@ -411,7 +411,7 @@ export default class FormStyle extends Component {
   gotoSelectForm(id) {
     const that = this;
     return function() {
-      console.log(id);
+      // console.log(id);
       const nextUrl = that.state.nextUrl;
       window.location.href = "/formStyle?id=" + id + nextUrl;
     }
