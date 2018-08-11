@@ -417,6 +417,7 @@ export default class FormStyle extends Component {
     }
   }
 
+  // 怎么实现用户返回表单时数据的渲染
 
   render() {
     const fields = this.state.fields;
