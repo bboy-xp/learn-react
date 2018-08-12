@@ -50,6 +50,8 @@ export default class FormStyle extends Component {
     const that = this;
     const isRepeated = this.state.repeated;
     return function (event) {
+      console.log(that.state.userData[0]);
+      console.log(field.name);
       if(isRepeated) {
         let userDataArr = that.state.userData;
         const userData = userDataArr[index1];
@@ -281,7 +283,7 @@ export default class FormStyle extends Component {
   //     alert('服务器故障，请重新填写表单，谢谢');
   //   }
   // }
-  async componentDidMount() {
+  async componentWillMount() {
     //获取url中的参数
     let url = window.location.href;
     let str = this.props.location.search;
@@ -319,14 +321,30 @@ export default class FormStyle extends Component {
       });
       // console.log(openid.data);
       localStorage.openid = openid.data;
+      const getRenderUserdata = await axios.post('/getRenderUserdata', {
+        id: id,
+        openid: openid
+      });
+      console.log(getRenderUserdata.data[0]['姓名']);
+      this.setState({
+        userData: getRenderUserdata.data
+      });
     } else {
-
       console.log('localStorage中已存入openid');
+      const getRenderUserdata = await axios.post('/getRenderUserdata', {
+        id: id,
+        openid: localStorage.getItem('openid')
+      });
+      console.log(getRenderUserdata.data[0]['姓名']);
+      this.setState({
+        userData: getRenderUserdata.data
+      });
     }
     // console.log(code,id);
 
+    console.log(localStorage.getItem("openid"));
 
-
+    
 
 
     const getFormRes = await axios.post('/getForm', {
@@ -373,7 +391,7 @@ export default class FormStyle extends Component {
       next: getFormRes.data[0].next,
       //临时注释  
 
-      userData: [{id: id}],
+      // userData: [{id: id}],
       formName: getFormRes.data[0].title,
       //防止repeated不存在出现bug
       repeated: !!getFormRes.data[0].repeated,
@@ -421,11 +439,13 @@ export default class FormStyle extends Component {
 
   render() {
     const fields = this.state.fields;
+    const userData = this.state.userData[0];
     //表单主体 list
     const item = fields.map((field, index) => {
       // <div key={index}>
       //   <span>{field.name}</span>
       // </div>
+      // console.log(field.name);
       if (field.type === "number") {
         return <div className="elementContainer" key={index}>
           <div className="inputQuestion">{index + 1} · {field.name}</div>
@@ -435,7 +455,7 @@ export default class FormStyle extends Component {
       if (field.type === "single_line_text") {
         return <div className="elementContainer" key={index}>
           <div className="inputQuestion">{index + 1} · {field.name}</div>
-          <input onChange={this.textChange(field)} className="inputBox" />
+          <input value={userData[field.name]} onChange={this.textChange(field)} className="inputBox" />
         </div>
       }
       if (field.type === "paragraph_text") {
