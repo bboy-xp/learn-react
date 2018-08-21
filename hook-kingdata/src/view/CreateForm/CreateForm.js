@@ -12,8 +12,8 @@ class CreateForm extends Component {
     this.getDescribe = this.getDescribe.bind(this);
     //将redux中的数据取出渲染
     this.state = {
-      title: this.props.formData.title,
-      describe: this.props.formData.describe
+      title: this.props.formDescription.title,
+      describe: this.props.formDescription.describe
     }
 
   }
@@ -62,11 +62,11 @@ class CreateForm extends Component {
 
 }
 
-//将state.fields绑定到props的formData
+//将state.fields绑定到props的formDescription
 const mapStateToProps = (state = {}) => {
   console.log(state);
   return {
-    formData: state
+    formDescription: state
   }
 };
 //将action的所有方法绑定到props上

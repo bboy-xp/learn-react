@@ -15,11 +15,11 @@ class Home extends Component {
     }
     this.createForm = this.createForm.bind(this);
   }
-  async componentDidMount() {
+  async componentWillMount() {
     // const testRes = await axios.get("/test");
     // console.log(testRes.data);
     const res = await axios.get("/getAllForm");
-    // console.log(res);
+    console.log(res.data);
     this.setState({
       allForm: res.data
     })
@@ -63,10 +63,10 @@ class Home extends Component {
 
 }
 
-//将state绑定到props的formData上
+//将state绑定到props的formDescription上
 const mapStateToProps = (state = {}) => {
   return {
-    formData: state
+    formDescription: state
   }
 };
 //将action的所有方法绑定到props上

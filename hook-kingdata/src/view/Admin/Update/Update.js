@@ -84,7 +84,7 @@ export default class Update extends Component {
       items = userdata.map((item, index1) => {
         const keys = Object.keys(item);
         //第二次map循环渲染出表单数据
-        const formData = keys.map((e, index) => {
+        const formDescription = keys.map((e, index) => {
           return (
             <div key={index}>
               <div>{e}</div>
@@ -111,7 +111,7 @@ export default class Update extends Component {
               <br />
             </div> */}
             {
-              formData
+              formDescription
             }
           </Collapse.Panel>
         )

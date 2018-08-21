@@ -29,13 +29,13 @@ class EditElement extends Component {
     this.props.history.push("/addElement");
   }
   // viewForm() {
-  //   const id = this.props.formData.id;
+  //   const id = this.props.formDescription.id;
   //   console.log(id);
   //   this.props.history.push("/formStyle?id="+id);
   // }
   async saveForm() {
-    const FormData = this.props.formData;
-    const res = await axios.post('/saveForm', FormData);
+    const FormDescription = this.props.formDescription;
+    const res = await axios.post('/saveForm', FormDescription);
     console.log(res);
     if(res.data == 'ok') {
       this.setState({
@@ -45,7 +45,7 @@ class EditElement extends Component {
     }else {
       Notify.error('保存失败');
     }
-    // const id = this.props.formData.id;
+    // const id = this.props.formDescription.id;
     // console.log(id);
     // this.props.history.push("/formStyle?id=" + id);
     //临时注释7.18
@@ -55,7 +55,7 @@ class EditElement extends Component {
     const res = await axios.get("/getAllForm");
     this.setState({
       allForm: res.data,
-      fields: this.props.formData.fields
+      fields: this.props.formDescription.fields
     })
   }
   connectForm(event) {
@@ -71,7 +71,7 @@ class EditElement extends Component {
   }
 
   copyUrl() {
-    const id = this.props.formData.id;
+    const id = this.props.formDescription.id;
 
     // 临时方法
     const formUrl = 'http://localhost:3000/formStyle?id=' + id;
@@ -120,11 +120,11 @@ class EditElement extends Component {
 
 }
 
-//将state绑定到props的formData上
+//将state绑定到props的formDescription上
 const mapStateToProps = (state = {}) => {
   // console.log(state);
   return {
-    formData: state
+    formDescription: state
   }
 };
 //将action的所有方法绑定到props上

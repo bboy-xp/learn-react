@@ -8,10 +8,10 @@ export default class Update extends Component {
     super(props);
     this.state = {
       id: '',
-      formdata: {},
+      FormDescription: {},
       userdata: [],
       newUserdata: [],
-      newFormdata: [],
+      newFormDescription: [],
     };
   }
   async componentDidMount() {
@@ -24,35 +24,40 @@ export default class Update extends Component {
     const getFormRes = await axios.post('/getForm', {
       id: id
     });
+    // console.log(getFormRes.data);
     this.setState({
-      formdata: getFormRes.data
+      formDescription: getFormRes.data
     })
     // console.log(getFormRes.data);
     const getUserdataRes = await axios.post('/getUserdata', {
       id: id
     });
+    console.log(getUserdataRes.data);
     this.setState({
       userdata: getUserdataRes.data
     })
     //处理从后端请求回来的数据，并渲染到table组件上
-    let newFormdata = [];
+    let newFormDescription = [];
     let newUserdata = [];
 
-    const formdataKey = Object.keys(this.state.formdata);
-    if (formdataKey.length !== 0 && this.state.userdata.length !== 0) {
-      const formdata = this.state.formdata[0].fields;
-      formdata.map((field, index) => {
-        newFormdata.push({
+    const formDescriptionKey = Object.keys(this.state.formDescription);
+    if (formDescriptionKey.length !== 0 && this.state.userdata.length !== 0) {
+      const formDescription = this.state.formDescription[0].fields;
+      formDescription.map((field, index) => {
+        newFormDescription.push({
           label: field.name,
           prop: field.name,
         })
       });
       const userdata = this.state.userdata;
+      console.log(userdata);
       userdata.map((e, index) => {
-        newUserdata.push(e.userdata);
+        e.userdata.map((data,index1) => {
+          newUserdata.push(data);
+        })
       });
       this.setState({
-        newFormdata: newFormdata,
+        newFormDescription: newFormDescription,
         newUserdata: newUserdata
       })
     }
@@ -62,7 +67,7 @@ export default class Update extends Component {
     return (
       <div>
         <Table
-          columns={this.state.newFormdata}
+          columns={this.state.newFormDescription}
           data={this.state.newUserdata}
         />
       </div>
