@@ -18,4 +18,6 @@ module.exports = app => {
   router.post('/getUserdataByOpenIdAndId',controller.home.getUserdataByOpenIdAndId);
   router.get('/test',controller.home.test);
   router.post('/getTimeSteps',controller.home.getTimeSteps);
+  router.post('/getRenderUserdata',controller.home.getRenderUserdata);
+  
 };
