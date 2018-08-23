@@ -344,30 +344,35 @@ export default class FormStyle extends Component {
       id: id,
       openid: localStorage.getItem('openid')
     });
-    console.log(getRenderUserdata.data)
+
+    const getFormRes = await axios.post('/getForm', {
+      id: id,
+    });
+    console.log(getFormRes.data[0]);
+
+    let repeatedFormArr = [];
+
+    // console.log(getRenderUserdata.data);
+
+    //判断表单是否填过
     if(getRenderUserdata.data.length === 0) {
       const newUserData = [{ id: id }];
       this.setState({
         userData: newUserData
       })
+      repeatedFormArr.push(getFormRes.data[0].fields);
     }else {
       this.setState({
         userData: getRenderUserdata.data
       });
+      getRenderUserdata.data.map(() => {
+        repeatedFormArr.push(getFormRes.data[0].fields);
+      })
     }
 
     console.log(localStorage.getItem("openid"));
 
-
-
-
-    const getFormRes = await axios.post('/getForm', {
-      id: id,
-    });
-    // console.log(getFormRes.data[0]);
-
-    let repeatedFormArr = [];
-    repeatedFormArr.push(getFormRes.data[0].fields)
+    
 
     //通过id获取到步骤条
     const timestepsRes = await axios.post('/getTimeSteps', {
@@ -455,7 +460,7 @@ export default class FormStyle extends Component {
 
   render() {
     const fields = this.state.fields;
-    const userData = this.state.userData[0];
+    const userData = this.state.userData;
     //表单主体 list
     const item = fields.map((field, index) => {
       // <div key={index}>
@@ -465,31 +470,31 @@ export default class FormStyle extends Component {
       if (field.type === "number") {
         return <div className="elementContainer" key={index}>
           <div className="inputQuestion">{index + 1} · {field.name}</div>
-          <input value={userData[field.name]} onChange={this.numChange(field)} className="inputBox" />
+          <input value={userData[0][field.name]} onChange={this.numChange(field)} className="inputBox" />
         </div>
       }
       if (field.type === "single_line_text") {
         return <div className="elementContainer" key={index}>
           <div className="inputQuestion">{index + 1} · {field.name}</div>
-          <input value={userData[field.name]} onChange={this.textChange(field)} className="inputBox" />
+          <input value={userData[0][field.name]} onChange={this.textChange(field)} className="inputBox" />
         </div>
       }
       if (field.type === "paragraph_text") {
         return <div className="elementContainer" key={index}>
           <div className="inputQuestion">{index + 1} · {field.name}</div>
-          <textarea value={userData[field.name]} onChange={this.nparagraphTextChange(field)} className="textareaStyle" auto-focus="true" maxLength="400" cols="30" rows="10"></textarea>
+          <textarea value={userData[0][field.name]} onChange={this.nparagraphTextChange(field)} className="textareaStyle" auto-focus="true" maxLength="400" cols="30" rows="10"></textarea>
         </div>
       }
       if (field.type === "phone") {
         return <div className="elementContainer" key={index}>
           <div className="inputQuestion">{index + 1} · {field.name}</div>
-          <input value={userData[field.name]} onChange={this.phoneChange(field)} className="inputBox" />
+          <input value={userData[0][field.name]} onChange={this.phoneChange(field)} className="inputBox" />
         </div>
       }
       if (field.type === "multiple_choice") {
         return <div className="elementContainer" key={index}>
           <div className="inputQuestion">{index + 1} · {field.name}</div>
-          <CheckboxGroup value={userData[field.name]} onChange={this.checkboxChange(index, field)} >
+          <CheckboxGroup value={userData[0][field.name]} onChange={this.checkboxChange(index, field)} >
             {field.choice.map((item, index) =>
               <div className="choiceStyle" key={index}>
                 <Checkbox value={item.value}>{item.value}</Checkbox>
@@ -502,7 +507,7 @@ export default class FormStyle extends Component {
         return <div className="elementContainer" key={index}>
           <div className="inputQuestion">{index + 1} · {field.name}</div>
           {/* <RadioGroup value={this.state['radioValue' + index]} onChange={this.radioChange(index, field)}> */}
-          <RadioGroup value={userData[field.name]} onChange={this.radioChange(index, field)}>
+          <RadioGroup value={userData[0][field.name]} onChange={this.radioChange(index, field)}>
             {field.choice.map((item, index) =>
               <div className="choiceStyle" key={index}>
                 <Radio value={item.value}>{item.value}</Radio>
@@ -533,31 +538,31 @@ export default class FormStyle extends Component {
             if (field.type === "number") {
               return <div className="elementContainer" key={index}>
                 <div className="inputQuestion">{index + 1} · {field.name}</div>
-                <input onChange={this.numChange(field, index1)} className="inputBox" />
+                <input value={userData[index1][field.name]} onChange={this.numChange(field, index1)} className="inputBox" />
               </div>
             }
             if (field.type === "single_line_text") {
               return <div className="elementContainer" key={index}>
                 <div className="inputQuestion">{index + 1} · {field.name}</div>
-                <input onChange={this.textChange(field, index1)} className="inputBox" />
+                <input value={userData[index1][field.name]} onChange={this.textChange(field, index1)} className="inputBox" />
               </div>
             }
             if (field.type === "paragraph_text") {
               return <div className="elementContainer" key={index}>
                 <div className="inputQuestion">{index + 1} · {field.name}</div>
-                <textarea onChange={this.nparagraphTextChange(field, index1)} className="textareaStyle" auto-focus="true" maxLength="400" cols="30" rows="10"></textarea>
+                <textarea value={userData[index1][field.name]} onChange={this.nparagraphTextChange(field, index1)} className="textareaStyle" auto-focus="true" maxLength="400" cols="30" rows="10"></textarea>
               </div>
             }
             if (field.type === "phone") {
               return <div className="elementContainer" key={index}>
                 <div className="inputQuestion">{index + 1} · {field.name}</div>
-                <input onChange={this.phoneChange(field, index1)} className="inputBox" />
+                <input value={userData[index1][field.name]} onChange={this.phoneChange(field, index1)} className="inputBox" />
               </div>
             }
             if (field.type === "multiple_choice") {
               return <div className="elementContainer" key={index}>
                 <div className="inputQuestion">{index + 1} · {field.name}</div>
-                <CheckboxGroup value={this.state['checkedList' + index]} onChange={this.checkboxChange(index, field, index1)} >
+                <CheckboxGroup value={userData[index1][field.name]} onChange={this.checkboxChange(index, field, index1)} >
                   {field.choice.map((item, index) =>
                     <div className="choiceStyle" key={index}>
                       <Checkbox value={item.value}>{item.value}</Checkbox>
@@ -569,7 +574,7 @@ export default class FormStyle extends Component {
             if (field.type === "single_choice") {
               return <div className="elementContainer" key={index}>
                 <div className="inputQuestion">{index + 1} · {field.name}</div>
-                <RadioGroup value={this.state['radioValue' + index]} onChange={this.radioChange(index, field, index1)}>
+                <RadioGroup value={userData[index1][field.name]} onChange={this.radioChange(index, field, index1)}>
                   {field.choice.map((item, index) =>
                     <div className="choiceStyle" key={index}>
                       <Radio value={item.value}>{item.value}</Radio>
@@ -581,7 +586,7 @@ export default class FormStyle extends Component {
             if (field.type === "drop_down") {
               return <div className="elementContainer" key={index}>
                 <div className="inputQuestion">{index + 1} · {field.name}</div>
-                <Select data={field.choice} onChange={this.selectChange(index, field, index1)} optionText="value" optionValue="value"></Select>
+                <Select value={userData[index1][field.name]} data={field.choice} onChange={this.selectChange(index, field, index1)} optionText="value" optionValue="value"></Select>
               </div>
             }
           }
