@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import { Steps } from 'element-react';
 import './FormStyle.css';
 import axios from 'axios';
-// import Resubmit from '../../components/Resubmit/Resubmit';
 
 
 const CheckboxGroup = Checkbox.Group;
@@ -40,10 +39,8 @@ export default class FormStyle extends Component {
     this.nparagraphTextChange = this.nparagraphTextChange.bind(this);
     this.phoneChange = this.phoneChange.bind(this);
     this.selectChange = this.selectChange.bind(this);
-    // this.resubmit = this.resubmit.bind(this);
     this.addRepeatedFormArr = this.addRepeatedFormArr.bind(this);
     this.gotoSelectForm = this.gotoSelectForm.bind(this);
-    // this.collapseChange = this.collapseChange.bind(this);
   }
 
   textChange(field, index1) {
@@ -64,8 +61,6 @@ export default class FormStyle extends Component {
         let userDataArr = that.state.userData;
         const userData = userDataArr[0];
         const newUserData = Object.assign(userData, { [field.name]: event.target.value });
-        // userData[field.name] = event.target.value;
-        // console.log(userData);
         userDataArr[0] = newUserData;
         that.setState({
           userData: userDataArr
@@ -169,15 +164,6 @@ export default class FormStyle extends Component {
       }
 
     }
-    // return function (checkedList) {
-    //   const newUserData = Object.assign(that.state.userData, { [field.name]: checkedList });
-    //   that.setState({
-    //     ['checkedList' + index]: checkedList,
-    //     userData: newUserData
-    //   })
-    //   // console.log(field.name);
-    // }
-    // console.log(this.state.checkedList);
   }
   radioChange(index, field, index1) {
     // console.log(event.target.value);
@@ -195,7 +181,6 @@ export default class FormStyle extends Component {
         })
       } else {
         let userDataArr = that.state.userData;
-        // console.log(userDataArr);
         const userData = userDataArr[index1];
         const newUserData = Object.assign(userData, { [field.name]: event.target.value });
         userDataArr[0] = newUserData;
@@ -205,13 +190,6 @@ export default class FormStyle extends Component {
         })
       }
     }
-    // return function (event) {
-    //   const newUserData = Object.assign(that.state.userData, { [field.name]: event.target.value });
-    //   that.setState({
-    //     ['radioValue' + index]: event.target.value,
-    //     userData: newUserData
-    //   })
-    // }
   }
   selectChange(index, field, index1) {
     const that = this;
@@ -247,7 +225,6 @@ export default class FormStyle extends Component {
     const userData = this.state.userData;
     const nextUrl = this.state.nextUrl;
     const isRepeated = this.state.repeated;
-    // console.log(userData);
     const res = await axios.post('/postUserData', {
       userData: userData,
       openid: openid,
@@ -266,24 +243,6 @@ export default class FormStyle extends Component {
       alert('服务器故障，请重新填写表单，谢谢');
     }
   }
-  // async resubmit() {
-  //   const openid = localStorage.getItem('openid');
-  //   const id = this.state.id;
-  //   const formName = this.state.formName;
-  //   const userData = this.state.userData;
-  //   const res = await axios.post('/postUserData', {
-  //     userData: userData,
-  //     openid: openid,
-  //     id: id,
-  //     formName: formName
-  //   });
-  //   console.log(res);
-  //   if (res.data === "ok") {
-  //     window.location.reload();
-  //   } else {
-  //     alert('服务器故障，请重新填写表单，谢谢');
-  //   }
-  // }
   async componentWillMount() {
     //获取url中的参数
     let url = window.location.href;
@@ -320,25 +279,11 @@ export default class FormStyle extends Component {
       const openid = await axios.post('/oauth', {
         code: code
       });
-      // console.log(openid.data);
       localStorage.openid = openid.data;
-      // console.log("走到这里了");
-      // const getRenderUserdata = await axios.post('/getRenderUserdata', {
-      //   id: id,
-      //   openid: openid
-      // });
-      // console.log(getRenderUserdata.data)
-      // this.setState({
-      //   userData: getRenderUserdata.data
-      // });
     } else {
-      console.log(localStorage.getItem('openid'));
       // localStorage中已存入openid
-      // console.log('localStorage中已存入openid');
-      // 失败的渲染数据
-
+      console.log(localStorage.getItem('openid'));
     }
-    // console.log(code,id);
 
     const getRenderUserdata = await axios.post('/getRenderUserdata', {
       id: id,
@@ -351,8 +296,6 @@ export default class FormStyle extends Component {
     console.log(getFormRes.data[0]);
 
     let repeatedFormArr = [];
-
-    // console.log(getRenderUserdata.data);
 
     //判断表单是否填过
     if(getRenderUserdata.data.length === 0) {
@@ -392,26 +335,12 @@ export default class FormStyle extends Component {
     }
     const timeStepArr = JSON.parse(localStorage.getItem('formStep'));
     const stepKey = Number(timeStepArr.length - timestepsRes.data.length);
-    // console.log(stepKey);
-
-    // 初始化userData
-    // console.log(repeatedFormArr);
-    // const iniUserdata = {};
-    // repeatedFormArr[0].map((formElement, index) => {
-    //   iniUserdata[formElement.name] = '';
-    // console.log(index);
-    // })
-    // iniUserdata[id] = id;
-    // console.log(iniUserdata);
     //将form的fields传入state中
     this.setState({
       fields: getFormRes.data[0].fields,
       title: getFormRes.data[0].title,
       next: getFormRes.data[0].next,
       //临时注释  
-
-      // userData: [{ id: id }],
-
 
       formName: getFormRes.data[0].title,
       //防止repeated不存在出现bug
@@ -434,7 +363,6 @@ export default class FormStyle extends Component {
     const field = this.state.fields;
     const repeatedFormArr = this.state.repeatedFormArr;
     repeatedFormArr.push(field);
-    // console.log(repeatedFormArr);
     this.setState({
       repeatedFormArr: repeatedFormArr,
       userData: userDataArr
@@ -450,7 +378,6 @@ export default class FormStyle extends Component {
   gotoSelectForm(id) {
     const that = this;
     return function () {
-      // console.log(id);
       const nextUrl = that.state.nextUrl;
       window.location.href = "/formStyle?id=" + id + nextUrl;
     }
@@ -463,10 +390,6 @@ export default class FormStyle extends Component {
     const userData = this.state.userData;
     //表单主体 list
     const item = fields.map((field, index) => {
-      // <div key={index}>
-      //   <span>{field.name}</span>
-      // </div>
-      // console.log(field.name);
       if (field.type === "number") {
         return <div className="elementContainer" key={index}>
           <div className="inputQuestion">{index + 1} · {field.name}</div>
@@ -506,7 +429,6 @@ export default class FormStyle extends Component {
       if (field.type === "single_choice") {
         return <div className="elementContainer" key={index}>
           <div className="inputQuestion">{index + 1} · {field.name}</div>
-          {/* <RadioGroup value={this.state['radioValue' + index]} onChange={this.radioChange(index, field)}> */}
           <RadioGroup value={userData[0][field.name]} onChange={this.radioChange(index, field)}>
             {field.choice.map((item, index) =>
               <div className="choiceStyle" key={index}>
