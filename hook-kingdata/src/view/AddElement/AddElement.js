@@ -35,7 +35,9 @@ export default class AddElement extends Component {
     this.addName = this.addName.bind(this);
     this.addOption = this.addOption.bind(this);
   }
-
+  componentWillMount() {
+    document.title = "添加字段";
+  }
   addName(event) {
     this.setState({
       name: event.target.value
@@ -55,7 +57,6 @@ export default class AddElement extends Component {
     return (
 
       <div className="container">
-        <div className="title">添加字段</div>
         <div className="boxContainer">
           <div className="inputBox2">
             <span className="inputText">字段名称</span>

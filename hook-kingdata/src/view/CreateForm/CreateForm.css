@@ -6,16 +6,7 @@
   flex-direction: column;
   align-items: center;
 }
-.title {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 7vw;
-  width: 100%;
-  height: 7vh;
-  border-bottom: 1px solid #cfbebe;
-  margin-bottom: 2vh;
-}
+
 .createBtn2 {
   background-color: #ffae00;
   width: 60vw;

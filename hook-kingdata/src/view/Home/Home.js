@@ -18,6 +18,8 @@ class Home extends Component {
   async componentWillMount() {
     // const testRes = await axios.get("/test");
     // console.log(testRes.data);
+    document.title = "首页";
+
     const res = await axios.get("/getAllForm");
     console.log(res.data);
     this.setState({
@@ -46,10 +48,9 @@ class Home extends Component {
 
     return (
       <div className="container">
-        <div className="title">首页</div>
-        <div className="createBtn" onClick={this.createForm}>
+        {/* <div className="createBtn" onClick={this.createForm}>
           <span>点击创建表单</span>
-        </div>
+        </div> */}
         <div className="formListContainer">
           <div className="createdFormTitle">
             <span className="createdForm">已建表单</span>

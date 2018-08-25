@@ -51,7 +51,9 @@ class EditElement extends Component {
     //临时注释7.18
     // window.location.href = "/";
   }
-  async componentDidMount() {
+  async componentWillMount() {
+    document.title = "编辑表单";
+
     const res = await axios.get("/getAllForm");
     this.setState({
       allForm: res.data,
@@ -92,7 +94,6 @@ class EditElement extends Component {
 
     return (
       <div className="container">
-        <div className="title">编辑表单</div>
         <div className="elementList">
           {list}
         </div>

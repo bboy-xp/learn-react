@@ -17,6 +17,9 @@ class CreateForm extends Component {
     }
 
   }
+  componentWillMount() {
+    document.title = "创建表单";
+  }
   getTitle(event) {
     this.setState({
       title: event.target.value
@@ -44,7 +47,6 @@ class CreateForm extends Component {
   render() {
     return (
       <div className="container">
-        <div className="title">首页</div>
         <div className="inputContainer">
           <span className="inputText">表单名称</span>
           <input value={this.state.title || ''} onChange={this.getTitle}></input>

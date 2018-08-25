@@ -47,8 +47,8 @@ export default class FormStyle extends Component {
     const that = this;
     const isRepeated = this.state.repeated;
     return function (event) {
-      console.log(that.state.userData[0]);
-      console.log(field.name);
+      // console.log(that.state.userData[0]);
+      // console.log(field.name);
       if (isRepeated) {
         let userDataArr = that.state.userData;
         const userData = userDataArr[index1];
@@ -153,7 +153,6 @@ export default class FormStyle extends Component {
         })
       } else {
         let userDataArr = that.state.userData;
-        // console.log(userDataArr);
         const userData = userDataArr[0];
         const newUserData = Object.assign(userData, { [field.name]: checkedList });
         userDataArr[0] = newUserData;
@@ -166,7 +165,6 @@ export default class FormStyle extends Component {
     }
   }
   radioChange(index, field, index1) {
-    // console.log(event.target.value);
     const that = this;
     const isRepeated = this.state.repeated;
     return function (event) {
@@ -207,7 +205,7 @@ export default class FormStyle extends Component {
         })
       } else {
         let userDataArr = that.state.userData;
-        console.log(userDataArr);
+        // console.log(userDataArr);
         const userData = userDataArr[0];
         const newUserData = Object.assign(userData, { [field.name]: event.target.value });
         userDataArr[0] = newUserData;
@@ -244,6 +242,7 @@ export default class FormStyle extends Component {
     }
   }
   async componentWillMount() {
+    document.title = "表单";
     //获取url中的参数
     let url = window.location.href;
     let str = this.props.location.search;
@@ -264,8 +263,8 @@ export default class FormStyle extends Component {
     url = 'http://hook.feit.me/' + newUrl[newUrl.length - 1];
     // console.log(url);
     //判断是否url带参数code，如果没带跳转授权页面使url带参数code
-
-
+    
+    
     // 微信授权
     //临时注释（frp不好使本地测试）
     if (param[1]) {
@@ -273,7 +272,7 @@ export default class FormStyle extends Component {
     } else {
       window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx21174deccc6b6c4b&redirect_uri=${url}&response_type=code&scope=snsapi_base&state=123#wechat_redirect`;
     }
-
+    
     //判断localStorage中是否有openid，如果没有将code发送到后端的/oauth路由上获取openid，并存入localStorage
     if (!localStorage.getItem('openid')) {
       const openid = await axios.post('/oauth', {
@@ -282,29 +281,31 @@ export default class FormStyle extends Component {
       localStorage.openid = openid.data;
     } else {
       // localStorage中已存入openid
-      console.log(localStorage.getItem('openid'));
+      // console.log(localStorage.getItem('openid'));
     }
+    const getFormRes = await axios.post('/getForm', {
+      id: id,
+    });
+    const title = getFormRes.data[0].title;
+    console.log(title);
+    // document.title = title;
 
     const getRenderUserdata = await axios.post('/getRenderUserdata', {
       id: id,
       openid: localStorage.getItem('openid')
     });
-
-    const getFormRes = await axios.post('/getForm', {
-      id: id,
-    });
-    console.log(getFormRes.data[0]);
+    
 
     let repeatedFormArr = [];
 
     //判断表单是否填过
-    if(getRenderUserdata.data.length === 0) {
+    if (getRenderUserdata.data.length === 0) {
       const newUserData = [{ id: id }];
       this.setState({
         userData: newUserData
       })
       repeatedFormArr.push(getFormRes.data[0].fields);
-    }else {
+    } else {
       this.setState({
         userData: getRenderUserdata.data
       });
@@ -313,9 +314,9 @@ export default class FormStyle extends Component {
       })
     }
 
-    console.log(localStorage.getItem("openid"));
+    // console.log(localStorage.getItem("openid"));
 
-    
+
 
     //通过id获取到步骤条
     const timestepsRes = await axios.post('/getTimeSteps', {
@@ -326,7 +327,7 @@ export default class FormStyle extends Component {
     const formStep = timestepsRes.data;
     const existFormStep = localStorage.getItem('existFormStep');
     if (!!existFormStep) {
-      console.log('已存在existFormStep');
+      // console.log('已存在existFormStep');
     } else {
       const existBoolean = true;
       localStorage.setItem('existFormStep', existBoolean);
