@@ -1,45 +1,63 @@
-.container {
+.homeContainer {
   height: 100vh;
   width: 100vw;
+  background-color: #f0eff4;
+  /* position: fixed; */
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  align-items: center;
-}
-
-.createBtn {
-  background-color: #ffc400;
-  width: 60vw;
-  height: 6vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 3vw;
-  margin: 3vh;
-  letter-spacing: 4px;
-  font-size: 4vw;
-}
-.formImg{
-  width: 6vw;
-  height: 6vw;
-  margin-bottom: -1%;
-  margin-left: 2vw;
   
 }
-.formListContainer {
+.createForm {
+  height: 7vh;
+  background-color: #fff;
+  margin-top: 2vh;
+  padding: 2vh;
+  display: flex;
+  align-items: center;
+}
+.formImg {
+  height: 7vh;
+  width: 7vh;
+}
+.createFormText {
+  margin-left: 4vw;
+  font-size: 1.1em;
+  color: #ff8434;
+  flex: 1;
+}
+.nextImg {
+  height: 4vw;
+  width: 4vw;
+}
+.formList {
   flex: 1;
   overflow: scroll;
-  padding-bottom: 3vh;
+  margin-top: 1.5vh;
+  background-color: #fff;
+  border-top: 2px solid #e9e9e9;
+  padding-left: 4vw;
 }
-.createdFormTitle {
-  margin-bottom: 3vw;
+.formItem {
+  padding: 2vh 2vh 2vh 0;
+  height: 7vh;
+  border-bottom: 2px solid #e9e9e9;
+  display: flex;
+  align-items: center;
 }
-.createdForm {
-  font-size: 7vw;
+.formItemText {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-left: 4vw;
+
 }
-.formLink {
-  margin-bottom: 2vw;
+.formName {
+  font-size: 1.1em;
+  font-weight: 500;
 }
-.linkText {
-  color: black;
+.dataQuantity {
+  font-size: 0.5em;
+  color: #a5a4a4;
 }
+

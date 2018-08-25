@@ -2,9 +2,10 @@ import React, { Component } from "react";
 import axios from "axios";
 import random from "../../components/random/random";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import './Home.css';
 import formImg from "../../static/img/form.png";
+import addFormImg from "../../static/img/addForm.png";
+import nextImg from "../../static/img/next.png";
 
 class Home extends Component {
 
@@ -14,10 +15,9 @@ class Home extends Component {
       allForm: []
     }
     this.createForm = this.createForm.bind(this);
+    this.gotoForm = this.gotoForm.bind(this);
   }
   async componentWillMount() {
-    // const testRes = await axios.get("/test");
-    // console.log(testRes.data);
     document.title = "首页";
 
     const res = await axios.get("/getAllForm");
@@ -32,30 +32,35 @@ class Home extends Component {
     this.props.pushid(id);
     this.props.history.push("/createForm");
   }
+  gotoForm(id) {
+    //闭包
+    const that = this;
+    return function() {
+      console.log(id);
+      that.props.history.push("/formStyle?id="+id);
+    }
+  }
 
   render() {
-    // console.log(this.state.allForm);
-    // const allForm = this.state.allForm;
-    // console.log(allForm);
     const formList = this.state.allForm.map((form, index) =>
-      <div className="formLink" key={index}>
-      <span>{index+1} · </span>
-        <Link className="linkText" to={"/formStyle?id=" + form.id}>{form.title}</Link>
+      <div key={index} onClick={this.gotoForm(form.id)} className="formItem">
+        <img className="formImg" src={formImg} alt="404" />
+        <div className="formItemText">
+          <div className="formName">{form.title}</div>
+          <div className="dataQuantity">总数据量</div>
+        </div>
+        <img className="nextImg" src={nextImg} alt="404" />
       </div>
     )
-    // console.log(formList);
-
 
     return (
-      <div className="container">
-        {/* <div className="createBtn" onClick={this.createForm}>
-          <span>点击创建表单</span>
-        </div> */}
-        <div className="formListContainer">
-          <div className="createdFormTitle">
-            <span className="createdForm">已建表单</span>
-            <img className="formImg" src={formImg} alt="404" />
-          </div>
+      <div className="homeContainer">
+        <div className="createForm" onClick={this.createForm}>
+          <img className="formImg" src={addFormImg} alt="404" />
+          <div className="createFormText">创建表单</div>
+          <img className="nextImg" src={nextImg} alt="404" />
+        </div>
+        <div className="formList">
           {formList}
         </div>
       </div>
