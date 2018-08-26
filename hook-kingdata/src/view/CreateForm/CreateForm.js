@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
 import "./CreateForm.css";
+import saveImg from "../../static/img/save.png";
 
 class CreateForm extends Component {
 
@@ -10,6 +11,7 @@ class CreateForm extends Component {
     this.createChildForm = this.createChildForm.bind(this);
     this.getTitle = this.getTitle.bind(this);
     this.getDescribe = this.getDescribe.bind(this);
+    // this.titleInputFocus = this.titleInputFocus.bind(this);
     //将redux中的数据取出渲染
     this.state = {
       title: this.props.formDescription.title,
@@ -20,6 +22,7 @@ class CreateForm extends Component {
   componentWillMount() {
     document.title = "创建表单";
   }
+  
   getTitle(event) {
     this.setState({
       title: event.target.value
@@ -46,17 +49,17 @@ class CreateForm extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="createFormContainer">
         <div className="inputContainer">
-          <span className="inputText">表单名称</span>
-          <input value={this.state.title || ''} onChange={this.getTitle}></input>
+          <input className="titleInput" value={this.state.title || ''} placeholder="未命名表单" onChange={this.getTitle}></input>
         </div>
         <div className="inputContainer">
-          <span className="inputText"> 表单描述</span>
-          <input value={this.state.describe || ''} onChange={this.getDescribe}></input>
+          <textarea className="describeTextarea" value={this.state.describe || ''} rows="6" placeholder="表单描述" onChange={this.getDescribe}></textarea>
         </div>
-        <div>
-          <div className="createBtn2" onClick={this.createChildForm}>点击创建子表单</div>
+        <div className="blank"></div>
+        <div className="createBtnContent">
+          <img className="saveImg" src={saveImg} alt="404" />
+          <div className="createBtn2" onClick={this.createChildForm}>保存</div>
         </div>
       </div>
     )

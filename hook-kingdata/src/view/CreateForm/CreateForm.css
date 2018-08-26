@@ -1,28 +1,41 @@
-.container {
+.createFormContainer {
   height: 100vh;
   width: 100vw;
+  background-color: #f0eff4;
   overflow: hidden;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.createBtn2 {
-  background-color: #ffae00;
-  width: 60vw;
-  height: 6vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 3vw;
-  letter-spacing: 4px;
-  font-size: 4vw;
-  margin: 0;
+  flex-direction: column; 
 }
 .inputContainer {
-  margin-bottom: 5vw;
+  margin-top: 2vh;
 }
-.inputText {
-  font-size: 4vw;
-  margin-right: 4vw;
+.titleInput {
+  width: 96%;
+  padding: 2vh;
+  border: none;
+}
+.describeTextarea {
+  width: 96%;
+  padding: 2vh;
+  border: none;
+}
+.blank{
+  flex: 1;
+}
+.createBtnContent {
+  height: 9vh;
+  background-color: #f7f7f7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 1px solid #e3e3e3;
+}
+.saveImg {
+  height: 4vh;
+  width: 4vh;
+  margin-right: 1vw;
+}
+.createBtn2 {
+  font-size: 3vh;
+  color: #ababab;
 }
