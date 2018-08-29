@@ -58,7 +58,8 @@ class EditElement extends Component {
     this.setState({
       allForm: res.data,
       fields: this.props.formDescription.fields
-    })
+    });
+    console.log(this.props.formDescription.fields);
   }
   connectForm(event) {
     this.props.pushNext(event.target.value);

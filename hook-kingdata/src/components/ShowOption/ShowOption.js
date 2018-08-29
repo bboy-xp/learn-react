@@ -118,8 +118,8 @@ class ShowOption extends Component {
       </div>
     }
     return (
-      <div>
-        <div className="submitBtn" onClick={this.saveElement}>保存字段</div>
+      <div className="saveBtnContent">
+        <div onClick={this.saveElement}>保存字段</div>
       </div>
     )
   }

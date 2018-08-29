@@ -56,14 +56,13 @@ export default class AddElement extends Component {
     const changeProps = this.state.change ? true : null;
     return (
 
-      <div className="container">
+      <div className="addElementContainer">
         <div className="boxContainer">
-          <div className="inputBox2">
-            <span className="inputText">字段名称</span>
-            <input type="text" onChange={this.addName} />
+          <div className="inputContainer">
+            <input type="text" className="nameInput" placeholder="字段标题" onChange={this.addName} />
           </div>
-          <div className="inputBox2">
-            <span className="inputText">字段类型</span>
+          <div className="selectContainer">
+            <div className="selectTitle">字段类型</div>
             <Select data={data} onChange={this.addOption} />
           </div>
         </div>
