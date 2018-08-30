@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import "./ShowOption.css";
+import deleteChoiceImg from "../../static/img/deleteChoice.png";
+import addChoiceImg from "../../static/img/addChoice.png";
+import deleteElementImg from "../../static/img/deleteElement.png";
+import saveElementImg from "../../static/img/saveElement.png";
 
 class ShowOption extends Component {
 
@@ -91,35 +95,86 @@ class ShowOption extends Component {
     // console.log(this.props.type);
     const item = this.state.options.map((option, index) =>
       <div className="choiceContainer" key={index}>
-        <div className="deleteBtn" onClick={() => this.deleteOption(index)}> - </div>
-        <input onChange={this.changeOption(index)} />
+        {/* <div className="deleteBtn" onClick={() => this.deleteOption(index)}> - </div> */}
+        <img className="deleteImg" onClick={() => this.deleteOption(index)} src={deleteChoiceImg} alt="404" />
+        <input placeholder={"选项" + (index + 1)} className="choiceInput" onChange={this.changeOption(index)} />
       </div>
     )
     const a = <div className="choiceBox">
+      <div className="choiceBoxTitle">
+        <span>字段标题</span>
+      </div>
       <div className="choiceFatherContainer">
         {item}
       </div>
-      <span onClick={this.addOption}>新增选项</span>
+      <div className="addBtnContent" onClick={this.addOption}>
+        <img className="addImg" src={addChoiceImg} alt="404" />
+        <span>新增选项</span>
+      </div>
     </div>
     if (this.state.type == "single_choice") {
-      return <div>{a}
-        <div className="submitBtn" onClick={this.saveElement}>保存字段</div>
+      return <div className="choiceBoxContent">
+        {a}
+        <div className="blank"></div>
+        <div className="footerBtnContent">
+          <div className="deleteElement">
+            <img className="footerBtn" src={deleteElementImg} alt="404" />
+            <span>删除字段</span>
+          </div>
+          <div className="saveElement" onClick={this.saveElement}>
+            <img className="footerBtn" src={saveElementImg} alt="404" />
+            <span>保存字段</span>
+          </div>
+        </div>
       </div>
 
     }
     if (this.state.type == "multiple_choice") {
-      return <div>{a}
-        <div className="submitBtn" onClick={this.saveElement}>保存字段</div>
+      return <div className="choiceBoxContent">
+        {a}
+        <div className="blank"></div>
+        <div className="footerBtnContent">
+          <div className="deleteElement">
+            <img className="footerBtn" src={deleteElementImg} alt="404" />
+            <span>删除字段</span>
+          </div>
+          <div className="saveElement" onClick={this.saveElement}>
+            <img className="footerBtn" src={saveElementImg} alt="404" />
+            <span>保存字段</span>
+          </div>
+        </div>
       </div>
     }
     if (this.state.type == "drop_down") {
-      return <div>{a}
-        <div className="submitBtn" onClick={this.saveElement}>保存字段</div>
+      return <div className="choiceBoxContent">
+        {a}
+        <div className="blank"></div>
+        <div className="footerBtnContent">
+          <div className="deleteElement">
+            <img className="footerBtn" src={deleteElementImg} alt="404" />
+            <span>删除字段</span>
+          </div>
+          <div className="saveElement" onClick={this.saveElement}>
+            <img className="footerBtn" src={saveElementImg} alt="404" />
+            <span>保存字段</span>
+          </div>
+        </div>
       </div>
     }
+
     return (
-      <div className="saveBtnContent">
-        <div onClick={this.saveElement}>保存字段</div>
+      <div className="textFooterBtnContent">
+        <div className="blank"></div>
+        <div className="footerBtnContent">
+          <div className="deleteElement">
+            <img className="footerBtn" src={deleteElementImg} alt="404" />
+            <span>删除字段</span>
+          </div>
+          <div className="saveElement" onClick={this.saveElement}>
+            <img className="footerBtn" src={saveElementImg} alt="404" />
+            <span>保存字段</span>
+          </div>
+        </div>
       </div>
     )
   }

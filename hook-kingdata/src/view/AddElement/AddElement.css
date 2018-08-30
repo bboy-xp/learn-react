@@ -42,3 +42,7 @@
   display: flex;
   justify-content: center;
 }
+.showOptionContainer {
+  margin-top: 2vh;
+  flex: 1;
+}
