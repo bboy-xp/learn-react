@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { Notify, Select, Checkbox } from 'zent';
+import { Notify, Select, Checkbox, Switch } from 'zent';
 // 引入剪切板功能复制表单的url
 import copy from 'copy-to-clipboard';
 import "./EditElement.css";
+import addBtnImg from "../../static/img/addChoice.png";
+import saveImg from "../../static/img/saveElement.png";
 
 class EditElement extends Component {
 
@@ -37,12 +39,12 @@ class EditElement extends Component {
     const FormDescription = this.props.formDescription;
     const res = await axios.post('/saveForm', FormDescription);
     console.log(res);
-    if(res.data == 'ok') {
+    if (res.data == 'ok') {
       this.setState({
         isSaved: true
       });
       Notify.success('保存成功');
-    }else {
+    } else {
       Notify.error('保存失败');
     }
     // const id = this.props.formDescription.id;
@@ -87,33 +89,45 @@ class EditElement extends Component {
     let list;
     if (this.state.fields) {
       list = this.state.fields.map((field, index) =>
-        <div key={index}>{field.type}</div>
+        <div className="elementTitle" key={index}>
+          {field.name}
+        </div>
       )
     } else {
-      list = <div>没有字段</div>
+      list = <div className="noElement">无字段</div>
     }
 
     return (
-      <div className="container">
+      <div className="editElementContainer">
         <div className="elementList">
           {list}
         </div>
-        <div>
-          <div className="btnStyle" onClick={this.addElement}>点击添加字段</div>
-          <br />
-          {/* <Link to = "/addElement">点击添加字段</Link> */}
+        <div className="functionArea">
+          {/* <div className="btnStyle" onClick={this.addElement}>点击添加字段</div> */}
+          <div className="addElementBtnContent" onClick={this.addElement}>
+            <img className="addImg" src={addBtnImg} alt="404" />
+            <span>添加字段</span>
+          </div>
+
           <div className="connectFormContainer">
-            <span> ⚪ 选择关联的表单</span>
+            <div className="connectFormTitle">选择关联的表单</div>
             <Select optionText="title" optionValue="id" data={this.state.allForm} onChange={this.connectForm}></Select>
           </div>
-          <div>
-            <Checkbox checked={this.state.isRepeated} onChange={this.repeatedChange}>设置成可重复填写的表单</Checkbox>
+          <div className="isRepeatedContent">
+            {/* <Checkbox checked={this.state.isRepeated} onChange={this.repeatedChange}>设置成可重复填写的表单</Checkbox> */}
+            <span className="isRepeatedText">设置成可重复填写的表单</span>
+            <Switch checked={this.state.isRepeated} onChange={this.repeatedChange} size="small" checkedText=" " uncheckedText=" " />
           </div>
-          <div className="btnStyle" onClick={this.saveForm}>保存表单</div>
+          {/* <div className="btnStyle" onClick={this.saveForm}>保存表单</div> */}
+          <div className="blank"></div>
+          <div className="saveBtnContent">
+            <img className="saveImg" src={saveImg} alt="404" />
+            <div className="saveBtnText" onClick={this.saveForm}>保存</div>
+          </div>
           {
-            this.state.isSaved ? 
-            <div className="btnStyle" onClick={this.copyUrl}>复制表单链接</div> :
-            null
+            this.state.isSaved ?
+              <div className="btnStyle" onClick={this.copyUrl}>复制表单链接</div> :
+              null
           }
         </div>
       </div>
