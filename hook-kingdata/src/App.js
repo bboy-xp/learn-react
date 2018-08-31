@@ -10,6 +10,7 @@ import List from './view/Admin/List/List';
 import AdministratorList from './view/Admin/AdministratorList/AdministratorList';
 import AdministratorUpdate from './view/Admin/AdministratorUpdate/AdministratorUpdate';
 import Success from './view/Success/Success';
+import Preview from './view/Preview/Preview';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
@@ -63,6 +64,7 @@ class App extends Component {
             <Route path="/formStyle" component={FormStyle} />
             <Route path="/success" component={Success} />
             <Route path="/editElement" component={EditElement} />
+            <Route path="/preview" component={Preview} />
             <Route path="/admin/update" component={Update} />
             <Route path="/admin/list" component={List} />
             <Route path="/admin/administratorList" component={AdministratorList} />

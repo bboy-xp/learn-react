@@ -24,6 +24,7 @@ class ShowOption extends Component {
     this.addOption = this.addOption.bind(this);
     this.changeOption = this.changeOption.bind(this);
     this.saveElement = this.saveElement.bind(this);
+    this.deleteElement = this.deleteElement.bind(this);
   }
 
 
@@ -75,6 +76,9 @@ class ShowOption extends Component {
       this.props.pushFields(field);
       this.props.history.push("/editElement");
     }
+  }
+  deleteElement() {
+    this.props.history.push("/editElement");
   }
 
   componentWillReceiveProps(nextProps) {
@@ -166,7 +170,7 @@ class ShowOption extends Component {
       <div className="textFooterBtnContent">
         <div className="blank"></div>
         <div className="footerBtnContent">
-          <div className="deleteElement">
+          <div className="deleteElement" onClick={this.deleteElement}>
             <img className="footerBtn" src={deleteElementImg} alt="404" />
             <span>删除字段</span>
           </div>

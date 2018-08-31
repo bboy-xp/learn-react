@@ -1,0 +1,93 @@
+.previewContainer {
+  height: 100vh;
+  width: 100vw;
+  background-color: #f0eff4;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.previewBody {
+  flex-basis: 92%;
+  margin: 0 2vh 2px 2vh;
+  background-color: #fff;
+  overflow: scroll;
+}
+.footer {
+  flex-basis: 8%;
+  background-color: #fafafa;
+  display: flex;
+  color: #fd843e;
+}
+.editFormContent {
+  flex-basis: 50%;
+  border-right: 1px solid #e1e1e1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.shareFormContent {
+  flex-basis: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.editImg {
+  height: 3vh;
+  width: 3vh;
+  margin-right: 1vh;
+}
+.shareImg {
+  height: 3vh;
+  width: 3vh;
+  margin-right: 1vh;
+}
+.titleContent {
+  padding: 2vh 2vh 2vh 2vh;
+  border-bottom: 2px solid #f2f2f2;
+}
+.formName {
+  font-size: 3vh;
+}
+.formDescription {
+  font-size: 1vh;
+  margin-top: 1vw;
+}
+.fieldsContent {
+  height: 122vw;
+  padding: 2vh;
+}
+.fieldItem {
+  margin-bottom: 3vh;
+}
+.fieldName {
+  font-size: 2vh;
+  margin-bottom: 1vh;
+}
+.inputBox {
+  width: 96%;
+  height: 5vh;
+  border: 1px solid #b7bec6;
+  border-radius: 0.8vw;
+  padding: 0 1vh;
+  outline: none;
+}
+.textareaBox {
+  width: 96%;
+  padding: 1vh;
+  border: 1px solid #b7bec6;
+  border-radius: 0.8vw;
+  outline: none;
+  resize : none;
+}
+.radioItem {
+  margin-bottom: 1vh;
+}
+.radioGroupContent {
+  padding-left: 1vh;
+}
+.checkboxGroupContent {
+  padding-left: 1vh;
+}
+.checkboxItem {
+  margin-bottom: 1vh;
+}

@@ -23,7 +23,7 @@ class EditElement extends Component {
       fields: [],
       allForm: [],
       isRepeated: false,
-      isSaved: false,
+      // isSaved: false,
     }
   }
 
@@ -49,7 +49,7 @@ class EditElement extends Component {
     }
     // const id = this.props.formDescription.id;
     // console.log(id);
-    // this.props.history.push("/formStyle?id=" + id);
+    this.props.history.push("/preview");
     //临时注释7.18
     // window.location.href = "/";
   }
@@ -124,11 +124,11 @@ class EditElement extends Component {
             <img className="saveImg" src={saveImg} alt="404" />
             <div className="saveBtnText" onClick={this.saveForm}>保存</div>
           </div>
-          {
+          {/* {
             this.state.isSaved ?
               <div className="btnStyle" onClick={this.copyUrl}>复制表单链接</div> :
               null
-          }
+          } */}
         </div>
       </div>
     )
