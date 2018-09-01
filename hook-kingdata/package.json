@@ -7,6 +7,7 @@
     "copy-to-clipboard": "^3.0.8",
     "element-react": "^1.4.20",
     "element-theme-default": "^1.4.13",
+    "qrcode.react": "^0.8.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-redux": "^5.0.7",

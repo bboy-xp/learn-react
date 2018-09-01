@@ -16,7 +16,8 @@ class Preview extends Component {
     super(props);
     this.state = {
       fields: []
-    }
+    };
+    this.gotoShare = this.gotoShare.bind(this);
 
   }
   async componentWillMount() {
@@ -25,8 +26,12 @@ class Preview extends Component {
     this.setState({
       fields: this.props.formDescription.fields
     })
-
   }
+  gotoShare() {
+    const id = this.props.formDescription.id;
+    this.props.history.push('/share?id='+id);
+  }
+
   render() {
 
     const form = this.state.fields.map((field, index) => {
@@ -124,62 +129,6 @@ class Preview extends Component {
           </div>
           <div className="fieldsContent">
             {form}
-            {/* <div className="fieldItem">
-              <div className="fieldName">单行文字</div>
-              <input className="inputBox" type="text" />
-            </div>
-            <div className="fieldItem">
-              <div className="fieldName">多行文字</div>
-              <textarea className="textareaBox" rows="4" type="text" />
-            </div>
-            <div className="fieldItem">
-              <div className="fieldName">单项选择</div>
-              <div className="radioGroupContent">
-                <RadioGroup>
-                  <div className="radioItem">
-                    <Radio value="male">男</Radio>
-                  </div>
-                  <div className="radioItem">
-                    <Radio value="female">女</Radio>
-                  </div>
-                </RadioGroup>
-              </div>
-            </div>
-            <div className="fieldItem">
-              <div className="fieldName">多项选择</div>
-              <div className="checkboxGroupContent">
-                <CheckboxGroup >
-                  <div className="checkboxItem">
-                    <Checkbox value="male">男</Checkbox>
-                  </div>
-                  <div className="checkboxItem">
-                    <Checkbox value="female">女</Checkbox>
-                  </div>
-                </CheckboxGroup >
-              </div>
-            </div>
-            <div className="fieldItem">
-              <div className="fieldName">下拉框</div>
-              <Select>
-                <Option value="1">Option 1</Option>
-                <Option value="2">Option 2</Option>
-                <Option value="3">Option 3</Option>
-              </Select>
-            </div>
-            <div className="fieldItem">
-              <div className="fieldName">数字</div>
-              <input className="inputBox" type="number" />
-            </div>
-            <div className="fieldItem">
-              <div className="fieldName">手机</div>
-              <input className="inputBox" type="number" />
-            </div>
-            <div className="fieldItem">
-              <div className="fieldName">日期</div>
-              <DatePicker
-                max="2020-01-01"
-              />
-            </div> */}
           </div>
         </div>
         <div className="footer">
@@ -187,7 +136,7 @@ class Preview extends Component {
             <img className="editImg" src={editImg} alt="404" />
             <span>编辑表单</span>
           </div>
-          <div className="shareFormContent">
+          <div className="shareFormContent" onClick={this.gotoShare}>
             <img className="shareImg" src={shareImg} alt="404" />
             <span>分享表单</span>
           </div>
@@ -207,7 +156,6 @@ const mapStateToProps = (state = {}) => {
 //将action的所有方法绑定到props上
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    pushid: (id) => dispatch({ type: "PUSH_ID", id }),
   }
 };
 

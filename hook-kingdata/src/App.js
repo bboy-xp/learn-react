@@ -11,6 +11,7 @@ import AdministratorList from './view/Admin/AdministratorList/AdministratorList'
 import AdministratorUpdate from './view/Admin/AdministratorUpdate/AdministratorUpdate';
 import Success from './view/Success/Success';
 import Preview from './view/Preview/Preview';
+import Share from './view/Share/Share';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
@@ -65,6 +66,7 @@ class App extends Component {
             <Route path="/success" component={Success} />
             <Route path="/editElement" component={EditElement} />
             <Route path="/preview" component={Preview} />
+            <Route path="/share" component={Share} />
             <Route path="/admin/update" component={Update} />
             <Route path="/admin/list" component={List} />
             <Route path="/admin/administratorList" component={AdministratorList} />

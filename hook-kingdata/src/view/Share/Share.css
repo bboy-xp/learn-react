@@ -1,0 +1,65 @@
+.shareContainer {
+  height: 96vh;
+  width: 94vw;
+  padding: 2vh 3vw;
+  background-color: #f0eff4;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.shareTitleContent {
+  padding: 2vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.successShareImg {
+  height: 4.5vh;
+  width: 4.5vh;
+}
+.titleText {
+  margin-left: 2vw;
+  font-size: 3vh;
+}
+.dividerContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2vh 0;
+}
+.dividerLine {
+  height: 2px;
+  background-color: #dddce1;
+  flex-basis: 33%;
+}
+.dividerText {
+  margin: 0 2vw;
+  font-size: 4vw;
+  color: #878787;
+}
+.qrCodeContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.qrCode {
+  margin: 10vh 0 5vh 0;
+  height: 30vh;
+  width: 30vh;
+}
+.shareModes {
+  display: flex;
+  justify-content: center;
+  padding: 8vh 0 6vh 0;
+}
+.shareMode {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 2.5vh;
+}
+.downloadShareImg {
+  height: 5vh;
+  width: 9vw;
+  margin-bottom: 1.5vh;
+}
