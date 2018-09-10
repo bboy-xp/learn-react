@@ -21,7 +21,7 @@ export default class Preview extends Component {
       id: ""
     }
     this.copyLink = this.copyLink.bind(this);
-
+    this.downloadQRcode = this.downloadQRcode.bind(this);
   }
   async componentWillMount() {
     document.title = "分享表单";
@@ -39,6 +39,33 @@ export default class Preview extends Component {
     copy(formUrl);
     Notify.success('成功复制到剪切板');
   }
+  downloadQRcode() {
+
+    // const canvas = document.querySelector('.qrCode > canvas');
+    // const QRcodeURL = canvas.toDataURL("image/png");
+
+    function downloadCanvasIamge(selector, name) {
+      // 通过选择器获取canvas元素
+      var canvas = document.querySelector(selector)
+      // 使用toDataURL方法将图像转换被base64编码的URL字符串
+      var url = canvas.toDataURL('image/png')
+      // 生成一个a元素
+      var a = document.createElement('a')
+      // 创建一个单击事件
+      var event = new MouseEvent('click')
+
+      // 将a的download属性设置为我们想要下载的图片名称，若name不存在则使用‘下载图片名称’作为默认名称
+      a.download = name || '下载图片名称'
+      // 将生成的URL设置为a.href属性
+      a.href = url
+      
+      // 触发a的单击事件
+      a.dispatchEvent(event)
+      console.log(a);
+    }
+    downloadCanvasIamge('canvas', 'test');
+  }
+
   render() {
 
     return (
@@ -59,7 +86,7 @@ export default class Preview extends Component {
           <div className="dividerText">填写者识别二维码即可填写</div>
         </div>
         <div className="shareModes">
-          <div className="shareMode">
+          <div className="shareMode" onClick={this.downloadQRcode}>
             <img className="downloadShareImg" src={downloadImg} alt="404" />
             <div className="shareModeText">保存二维码</div>
           </div>

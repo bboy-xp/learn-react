@@ -45,3 +45,6 @@
   position: relative;
   top: -4vh;
 }
+.textareaStyle {
+  resize:none;
+}
