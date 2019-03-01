@@ -18,18 +18,18 @@
 
 ```
 # 效果：
-![one](https://github.com/bboy-xp/learn-react/tree/master/hook-kingdata/src/static/show/1.png?raw=true)
-![two](https://github.com/bboy-xp/learn-react/tree/master/hook-kingdata/src/static/show/2.png?raw=true)
-![three](https://github.com/bboy-xp/learn-react/tree/master/hook-kingdata/src/static/show/3.jpg?raw=true)
-![three](https://github.com/bboy-xp/learn-react/tree/master/hook-kingdata/src/static/show/4.jpg?raw=true)
+![one](https://github.com/bboy-xp/learn-react/blob/master/hook-kingdata/src/static/show/1.png?raw=true)
+![two](https://github.com/bboy-xp/learn-react/blob/master/hook-kingdata/src/static/show/2.png?raw=true)
+![three](https://github.com/bboy-xp/learn-react/blob/master/hook-kingdata/src/static/show/3.jpg?raw=true)
+![three](https://github.com/bboy-xp/learn-react/blob/master/hook-kingdata/src/static/show/4.jpg?raw=true)
 
-> &#x26A0; Tips：欢迎在我的 [GitHub Issue](https://github.com/bboy-xp/formx-backstage/issues) 页沟通交流并提出您的宝贵建议，您的建议是我成长的动力来源 &#x1F603;
+> &#x26A0; Tips：欢迎在我的 [GitHub Issue](https://github.com/bboy-xp/learn-react/issues) 页沟通交流并提出您的宝贵建议，您的建议是我成长的动力来源 &#x1F603;
 
 # 技术栈
-- react ^16.6.0、 react-router4
+- react ^16.8.3、 react-router4
 - css
 - react-element (表格，表单，布局等)
-- Echarts (折线图)
+- qrcode.react
 
 
 
@@ -43,7 +43,7 @@
 # install dependencies
 npm install
 
-# serve with hot reload at localhost:8080
+# serve with hot reload at localhost:3000
 npm run start
 
 # build for production with minification
@@ -53,5 +53,5 @@ npm run build
 
 ## 其他
 
-  + &#x1F4CD; 如果您有任何好的建议或想法，欢迎在我的 [GitHub Issue](https://github.com/bboy-xp/formx-backstage/issues) 中交流探讨
+  + &#x1F4CD; 如果您有任何好的建议或想法，欢迎在我的 [GitHub Issue](https://github.com/bboy-xp/learn-react/issues) 中交流探讨
   + &#x1F4E7; 您也可以向我发送邮件以取得联系： 1169470657@qq.com
