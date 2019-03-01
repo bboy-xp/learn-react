@@ -21,7 +21,7 @@
 ![one](https://github.com/bboy-xp/learn-react/tree/master/hook-kingdata/src/static/show/1.png?raw=true)
 ![two](https://github.com/bboy-xp/learn-react/tree/master/hook-kingdata/src/static/show/2.png?raw=true)
 ![three](https://github.com/bboy-xp/learn-react/tree/master/hook-kingdata/src/static/show/3.jpg?raw=true)
-![three]https://github.com/bboy-xp/learn-react/tree/master/hook-kingdata/src/static/show/4.jpg?raw=true)
+![three](https://github.com/bboy-xp/learn-react/tree/master/hook-kingdata/src/static/show/4.jpg?raw=true)
 
 > &#x26A0; Tips：欢迎在我的 [GitHub Issue](https://github.com/bboy-xp/formx-backstage/issues) 页沟通交流并提出您的宝贵建议，您的建议是我成长的动力来源 &#x1F603;
 
