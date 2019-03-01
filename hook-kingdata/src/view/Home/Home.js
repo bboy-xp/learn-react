@@ -15,7 +15,7 @@ class Home extends Component {
       allForm: []
     }
     this.createForm = this.createForm.bind(this);
-    this.gotoForm = this.gotoForm.bind(this);
+    this.gotoFormBackstage = this.gotoFormBackstage.bind(this);
   }
   async componentWillMount() {
     document.title = "首页";
@@ -32,18 +32,18 @@ class Home extends Component {
     this.props.pushid(id);
     this.props.history.push("/createForm");
   }
-  gotoForm(id) {
+  gotoFormBackstage(id) {
     //闭包
     const that = this;
     return function() {
-      console.log(id);
-      that.props.history.push("/formStyle?id="+id);
+      // console.log(id);
+      that.props.history.push("/backstage?id="+id);
     }
   }
 
   render() {
     const formList = this.state.allForm.map((form, index) =>
-      <div key={index} onClick={this.gotoForm(form.id)} className="formItem">
+      <div key={index} onClick={this.gotoFormBackstage(form.id)} className="formItem">
         <img className="formImg" src={formImg} alt="404" />
         <div className="formItemText">
           <div className="formName">{form.title}</div>

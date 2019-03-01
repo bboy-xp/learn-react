@@ -1,0 +1,77 @@
+.BackstageContainer {
+  height: 100vh;
+  width: 100vw;
+  background-color: #f0eff4;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.header {
+  height: 8vh;
+  background-color: #fff;
+  display: flex;
+  border-bottom: 1px solid #c0bfc5;
+}
+.headItem {
+  flex-basis: 50%;
+  text-align: center;
+  line-height: 8vh;
+}
+.selectHead {
+  color: #eea114;
+}
+.dataShow {
+  margin-top: 3vh;
+  padding: 4vh 0;
+  background-color: #fff;
+  display: flex;
+  height: 5vh;
+}
+.dataShowItem {
+  flex-basis: 33%;
+  text-align: center;
+
+}
+.bothsidesBorder {
+  border-right: 2px solid #efefef;
+  border-left: 2px solid #efefef;
+}
+.dataNum {
+  font-size: 5vh;
+  margin-top: -2vh;
+}
+.dataNumDescription {
+  font-size: 3.5vw;
+  color: #707070;
+}
+.BackstageFooter {
+  flex: 1;
+  margin-top: 2vh;
+}
+  
+.btnContent {
+  height: 8vh;
+  background-color: #f8f8f8;
+  width: 90%;
+  margin: 0 auto;
+  border: 1px solid #d6d5da;
+  border-radius: 1vh;
+  font-size: 3vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 4vh;
+}
+.shareBtn {
+  color: #eea114;
+}
+.deleteBtn {
+  color: #d15f45;
+  border: none;
+  background-color: #f0eff4;
+}
+.backstageShareImg {
+  height: 3.5vh;
+  width: 3.5vh;
+  margin-right: 2vw;
+}
